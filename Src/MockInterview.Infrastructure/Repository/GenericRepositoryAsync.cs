@@ -27,7 +27,12 @@ namespace MockInterview.Infrastructure.Repository
             try
             {
                 await dbSet.AddAsync(entity);
-                return true;
+                bool isSucces = await SaveChangesAsync();
+                if(isSucces)
+                {
+                    return true;
+                }
+                return false;
             }
             catch
             {
@@ -52,8 +57,14 @@ namespace MockInterview.Infrastructure.Repository
 
                 entity.IsActive = false;
                 this.context.Entry(entity).State = EntityState.Modified;
+                bool isSucces = await SaveChangesAsync();
 
-                return true;
+                if (isSucces)
+                {
+                    return true;
+                }
+
+                return false;
             }
             catch
             {
@@ -106,13 +117,19 @@ namespace MockInterview.Infrastructure.Repository
         /// <param name="entity"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public virtual bool UpdateAsync(T entity)
+        public async virtual Task<bool> UpdateAsync(T entity)
         {
             try
             {
                 this.context.Entry(entity).State = EntityState.Modified;
+                bool isSucces = await SaveChangesAsync();
 
-                return true;
+                if (isSucces)
+                {
+                    return true;
+                }
+
+                return false;
             }
             catch(Exception ex)
             {
@@ -140,5 +157,9 @@ namespace MockInterview.Infrastructure.Repository
 
             return (entities, count);
         }
+
+        public async Task<bool> SaveChangesAsync() =>
+             await context.SaveChangesAsync() > 0 ? true : false;
+
     }
 }
