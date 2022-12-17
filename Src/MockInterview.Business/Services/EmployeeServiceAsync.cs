@@ -18,11 +18,11 @@ namespace MockInterview.Business.Services
         private readonly IMapper mapper;
         private HttpResponse<EmployeeDTO> response;
 
-        public EmployeeServiceAsync(IEmployeeRepositoryAsync employeeRepositoryAsync, IMapper mapper, HttpResponse<EmployeeDTO> response)
+        public EmployeeServiceAsync(IEmployeeRepositoryAsync employeeRepositoryAsync, IMapper mapper)
         {
             this.employeeRepositoryAsync = employeeRepositoryAsync;
             this.mapper = mapper;
-            response = new HttpResponse<EmployeeDTO>();
+            this.response = new HttpResponse<EmployeeDTO>();
         }
         public async Task<HttpResponse<EmployeeDTO>> Create(EmployeeDTO model)
         {
