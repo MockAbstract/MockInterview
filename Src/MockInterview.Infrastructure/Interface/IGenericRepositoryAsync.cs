@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MockInterview.Domain;
+using System.Linq.Expressions;
 
 namespace MockInterview.Infrastructure.Interface
 {
@@ -13,6 +10,7 @@ namespace MockInterview.Infrastructure.Interface
         Task DeleteAsync(Guid id);
         Task<IEnumerable<T>> GetAllAsync();
         Task<T> GetById(Guid id);
-        Task<T> Find(Func<T, bool> conditionLambda);
+        Task<T> Find(Expression<Func<T, bool>> expression);
+        Task<T> Find(Expression<Func<T, bool>> expression, List<string> tables);
     }
 }
