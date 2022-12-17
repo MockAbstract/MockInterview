@@ -1,4 +1,6 @@
-﻿namespace MockInterview.Domain.Entities
+﻿using MockInterview.Domain.Enums;
+
+namespace MockInterview.Domain.Entities
 {
     public class Interview : BaseEntity
     {
@@ -10,6 +12,8 @@
         public Guid EployeId { get; set; }
         public Employee Employee { get; set; }
         public DateTimeOffset InterviewDate { get; set; }
+        public Level Level { get; set; }
+        public decimal Price { get; set; }
         public decimal PaymentStatus { get; set; }
     }
 }
