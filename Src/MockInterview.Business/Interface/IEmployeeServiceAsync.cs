@@ -1,6 +1,6 @@
 ﻿namespace MockInterview.Business.Interface
 {
-    public interface IEmployeeServiceAsync
+    public interface IEmployeeServiceAsync : IGenericServiceAsync<>
     {
     }
 }
