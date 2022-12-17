@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using MockInterview.Business.Profile;
+using MockInterview.Business.Helper;
 
 namespace MockInterview.Business.Extentions
 {

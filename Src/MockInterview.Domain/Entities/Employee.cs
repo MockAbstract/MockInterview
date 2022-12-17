@@ -31,9 +31,6 @@ namespace MockInterview.Domain.Entities
         [Required]
         public Role Role { get; set; }
 
-        [Required]
-        public string[] Permission { get; set; }
-
         public Guid CreatedBy { get; set; }
 
         public Guid UpdatedBy { get; set; }

@@ -90,8 +90,7 @@ namespace MockInterview.Business.Services
             return new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, employee.Id.ToString()),
-                new Claim(ClaimTypes.Role, employee.Role.ToString()),
-                new Claim("Permissions", JsonConvert.SerializeObject(employee.Permission))
+                new Claim(ClaimTypes.Role, employee.Role.ToString())
             };
         }
         private string GetToken(List<Claim> claims)
