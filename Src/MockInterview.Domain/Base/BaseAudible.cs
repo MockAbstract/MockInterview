@@ -1,6 +1,6 @@
 ﻿namespace MockInterview.Domain
 {
-    public interface BaseAudible : BaseEntity
+    public interface BaseAudible 
     {
         public Guid CreatedBy { get; set; }
         public Guid UpdatedBy { get; set;}
