@@ -10,7 +10,5 @@
         public void SetLastModified() => LastModifiedDate = DateTimeOffset.UtcNow;
 
         public void SetCreatedDate() => CreatedDate = DateTimeOffset.UtcNow;
-
-
     }
 }
