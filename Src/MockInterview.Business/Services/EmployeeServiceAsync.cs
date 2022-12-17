@@ -34,12 +34,15 @@ namespace MockInterview.Business.Services
                 employee = mapper.Map<Employee>(model);
                 bool isSucces = await this.employeeRepositoryAsync
                     .InsertAsync(employee);
+
                 if (isSucces)
-                {
                     return response;
-                }
             }
-            response.StatusCode = StatusCodes.400
+
+            response.IsSuccess = false;
+            response.StatusCode = StatusCodes.Status400BadRequest;
+
+            return response;
         }
 
         public virtual async Task<HttpResponse<EmployeeDTO>> Delete(Guid Id)

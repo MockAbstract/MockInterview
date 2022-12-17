@@ -116,6 +116,8 @@ namespace MockInterview.Infrastructure.Repository
             }
             catch(Exception ex)
             {
+                Console.WriteLine(ex.ToString());
+
                 return false;
             }
         }
