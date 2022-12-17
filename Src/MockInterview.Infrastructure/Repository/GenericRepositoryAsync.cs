@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace MockInterview.Infrastructure.Repository
 {
-    public abstract class GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T : class
+    public abstract class GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T : BaseEntity
     {
         private readonly ApplicationDbContext context;
         private readonly DbSet<T> dbSet;
@@ -17,25 +17,48 @@ namespace MockInterview.Infrastructure.Repository
             this.dbSet = context.Set<T>();
         }
         /// <summary>
-        /// 
+        /// Insert new entity to table
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public virtual Task<bool> CreateAsync(T entity)
+        public virtual async Task<bool> CreateAsync(T entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await dbSet.AddAsync(entity);
+                return true;
+            }
+            catch
+            {
+                return true;
+            }
         }
 
         /// <summary>
-        /// 
+        /// Delete Entity
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public virtual Task<bool> DeleteAsync(Guid id)
+        public virtual async Task<bool> DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var entity = await dbSet.FindAsync(id);
+
+                if (entity is null)
+                    return true;
+
+                entity.IsActive = false;
+                this.context.Entry(entity).State = EntityState.Modified;
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -75,14 +98,23 @@ namespace MockInterview.Infrastructure.Repository
         }
 
         /// <summary>
-        /// 
+        /// Update entity
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public virtual Task<bool> UpdateAsync(T entity)
+        public virtual bool UpdateAsync(T entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                this.context.Entry(entity).State = EntityState.Modified;
+
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
         }
     }
 }
