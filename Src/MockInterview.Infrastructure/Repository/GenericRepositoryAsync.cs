@@ -6,12 +6,12 @@ using System.Linq.Expressions;
 
 namespace MockInterview.Infrastructure.Repository
 {
-    public class GenericRepository<T> : IGenericRepositoryAsync<T> where T : class
+    public abstract class GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T : class
     {
         private readonly ApplicationDbContext context;
         private readonly DbSet<T> dbSet;
 
-        public GenericRepository(ApplicationDbContext context)
+        public GenericRepositoryAsync(ApplicationDbContext context)
         {
             this.context = context;
             this.dbSet = context.Set<T>();
@@ -22,7 +22,7 @@ namespace MockInterview.Infrastructure.Repository
         /// <param name="entity"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public Task<T> CreateAsync(T entity)
+        public virtual Task<bool> CreateAsync(T entity)
         {
             throw new NotImplementedException();
         }
@@ -33,32 +33,35 @@ namespace MockInterview.Infrastructure.Repository
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public Task DeleteAsync(Guid id)
+        public virtual Task<bool> DeleteAsync(Guid id)
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// 
+        /// Find entity from condition
         /// </summary>
         /// <param name="expression"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public Task<T> Find(Expression<Func<T, bool>> expression)
-        {
-            throw new NotImplementedException();
-        }
+        public virtual async Task<T> FindAsync(Expression<Func<T, bool>> expression) => 
+            await this.dbSet.AsNoTracking().FirstOrDefaultAsync(expression);
 
         /// <summary>
-        /// 
+        /// Find enitity with including some tables from condition
         /// </summary>
         /// <param name="expression"></param>
         /// <param name="tables"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public Task<T> Find(Expression<Func<T, bool>> expression, List<string> tables)
+        public virtual async Task<T> FindAsync(Expression<Func<T, bool>> expression, List<string> tables)
         {
-            throw new NotImplementedException();
+            IQueryable<T> entities = dbSet.AsNoTracking();
+            foreach(var table in tables)
+            {
+                entities = entities.Include(table);
+            }
+            return await entities.FirstOrDefaultAsync(expression);
         }
 
         /// <summary>
@@ -66,7 +69,7 @@ namespace MockInterview.Infrastructure.Repository
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public Task<IEnumerable<T>> GetAllAsync()
+        public virtual Task<IEnumerable<T>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
@@ -77,7 +80,7 @@ namespace MockInterview.Infrastructure.Repository
         /// <param name="entity"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public Task<T> UpdateAsync(T entity)
+        public virtual Task<bool> UpdateAsync(T entity)
         {
             throw new NotImplementedException();
         }
