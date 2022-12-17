@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MockInterview.Business.Profile
+namespace MockInterview.Business.Helper
 {
     internal class MappingInitializer
     {
