@@ -6,7 +6,6 @@ using MockInterview.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var builder = WebApplication.CreateBuilder(args);
 //builder.Host.UseSerilog();
 // Add services to the container.
 var configuration = builder.Configuration;
