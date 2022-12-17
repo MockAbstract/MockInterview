@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using MockInterview.Business.Interface;
 using MockInterview.Domain.Entities;
 using MockInterview.Domain.Models;
@@ -23,9 +24,22 @@ namespace MockInterview.Business.Services
             this.mapper = mapper;
             response = new HttpResponse<EmployeeDTO>();
         }
-        public Task<HttpResponse<EmployeeDTO>> Create(EmployeeDTO model)
+        public async Task<HttpResponse<EmployeeDTO>> Create(EmployeeDTO model)
         {
-            throw new NotImplementedException();
+            var employee = await this.employeeRepositoryAsync
+                .FindAsync(m => m.Login == model.Login);
+
+            if (employee == null)
+            {
+                employee = mapper.Map<Employee>(model);
+                bool isSucces = await this.employeeRepositoryAsync
+                    .InsertAsync(employee);
+                if (isSucces)
+                {
+                    return response;
+                }
+            }
+            response.StatusCode = StatusCodes.400
         }
 
         public virtual async Task<HttpResponse<EmployeeDTO>> Delete(Guid Id)
