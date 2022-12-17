@@ -22,7 +22,7 @@ namespace MockInterview.Infrastructure.Repository
         /// <param name="entity"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public virtual async Task<bool> CreateAsync(T entity)
+        public virtual async Task<bool> InsertAsync(T entity)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace MockInterview.Infrastructure.Repository
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public virtual async Task<bool> DeleteAsync(Guid id)
+        public virtual async Task<bool> RemoveAsync(Guid id)
         {
             try
             {
@@ -88,13 +88,13 @@ namespace MockInterview.Infrastructure.Repository
         }
 
         /// <summary>
-        /// 
+        /// Get all entity
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public virtual Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await dbSet.AsNoTracking().Where(entity => entity.IsActive.Equals(true)).ToListAsync();
         }
 
         /// <summary>

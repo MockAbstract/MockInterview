@@ -5,9 +5,9 @@ namespace MockInterview.Infrastructure.Interface
 {
     public interface IGenericRepositoryAsync<T> where T : BaseEntity
     {
-        Task<bool> CreateAsync(T entity);
+        Task<bool> InsertAsync(T entity);
         bool UpdateAsync(T entity);
-        Task<bool> DeleteAsync(Guid id);
+        Task<bool> RemoveAsync(Guid id);
         Task<IEnumerable<T>> GetAllAsync();
         Task<T> FindAsync(Expression<Func<T, bool>> expression);
         Task<T> FindAsync(Expression<Func<T, bool>> expression, List<string> tables);
