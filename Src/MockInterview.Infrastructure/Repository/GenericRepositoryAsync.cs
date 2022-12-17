@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace MockInterview.Infrastructure.Repository
 {
-    public abstract class GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T : class
+    public abstract class GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T : BaseEntity
     {
         private readonly ApplicationDbContext context;
         private readonly DbSet<T> dbSet;
@@ -65,13 +65,13 @@ namespace MockInterview.Infrastructure.Repository
         }
 
         /// <summary>
-        /// 
+        /// Get all entity
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public virtual Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await dbSet.AsNoTracking().Where(entity => entity.IsActive.Equals(true)).ToListAsync();
         }
 
         /// <summary>
