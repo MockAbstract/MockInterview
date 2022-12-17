@@ -1,9 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Interface\" />
     <Folder Include="Data\SeedData\" />
     <Folder Include="Repository\" />
   </ItemGroup>
@@ -24,6 +24,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MockInterview.Domain\MockInterview.Domain.csproj" />
   </ItemGroup>
 
 </Project>
