@@ -3,11 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MockInterview.Domain.Entities
 {
-    public class Employee : BaseAudible
+    public class Employee :BaseEntity, BaseAudible
     {
-        [Required]
-        public Guid Id { get; set; }
-
+         
         [Required]
         public string FirstName { get; set; }
 

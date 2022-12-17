@@ -13,6 +13,7 @@ namespace MockInterview.Domain.Entities
         [Required]
         public string Description { get; set; }
 
+
         [Required]
         public virtual ICollection<Employee> Specialist { get; set; }
     }

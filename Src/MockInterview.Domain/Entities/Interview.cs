@@ -5,8 +5,6 @@ namespace MockInterview.Domain.Entities
 {
     public class Interview : BaseEntity
     {
-        [Key]
-        public Guid Id { get; set; }
  
         [Required]
         public Guid ClientId { get; set; }
