@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33103.184
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{E7E27169-C031-44DB-A534-1EFE8D040DC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MockInterview.Domain", "Src\MockInterview.Domain\MockInterview.Domain.csproj", "{6136508A-D6EB-4F1C-9BB6-CA760D32BC5D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6136508A-D6EB-4F1C-9BB6-CA760D32BC5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6136508A-D6EB-4F1C-9BB6-CA760D32BC5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6136508A-D6EB-4F1C-9BB6-CA760D32BC5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6136508A-D6EB-4F1C-9BB6-CA760D32BC5D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6136508A-D6EB-4F1C-9BB6-CA760D32BC5D} = {E7E27169-C031-44DB-A534-1EFE8D040DC8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {893D2CE3-492B-4664-AA3F-263B2DBC9D3D}
+	EndGlobalSection
+EndGlobal
