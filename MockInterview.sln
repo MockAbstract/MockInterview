@@ -7,8 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{E7E27169-C03
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MockInterview.Domain", "Src\MockInterview.Domain\MockInterview.Domain.csproj", "{6136508A-D6EB-4F1C-9BB6-CA760D32BC5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MockInterview.Infrastructure", "Src\MockInterview.Infrastructure\MockInterview.Infrastructure.csproj", "{6332343F-BF73-4453-95DE-6E1B94C27BB3}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,17 +17,12 @@ Global
 		{6136508A-D6EB-4F1C-9BB6-CA760D32BC5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6136508A-D6EB-4F1C-9BB6-CA760D32BC5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6136508A-D6EB-4F1C-9BB6-CA760D32BC5D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6332343F-BF73-4453-95DE-6E1B94C27BB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6332343F-BF73-4453-95DE-6E1B94C27BB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6332343F-BF73-4453-95DE-6E1B94C27BB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6332343F-BF73-4453-95DE-6E1B94C27BB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6136508A-D6EB-4F1C-9BB6-CA760D32BC5D} = {E7E27169-C031-44DB-A534-1EFE8D040DC8}
-		{6332343F-BF73-4453-95DE-6E1B94C27BB3} = {E7E27169-C031-44DB-A534-1EFE8D040DC8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {893D2CE3-492B-4664-AA3F-263B2DBC9D3D}
