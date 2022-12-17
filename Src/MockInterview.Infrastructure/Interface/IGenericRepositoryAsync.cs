@@ -9,7 +9,6 @@ namespace MockInterview.Infrastructure.Interface
         Task<T> UpdateAsync(T entity);
         Task DeleteAsync(Guid id);
         Task<IEnumerable<T>> GetAllAsync();
-        Task<T> GetById(Guid id);
         Task<T> Find(Expression<Func<T, bool>> expression);
         Task<T> Find(Expression<Func<T, bool>> expression, List<string> tables);
     }
