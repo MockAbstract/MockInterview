@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using MockInterview.Domain.Entities;
+using MockInterview.Domain.Models.EmployeeDTO;
 
 namespace MockInterview.Business.Helper
 {
-    internal class MappingInitializer
+    public class MappingInitializer : Profile
     {
+        public MappingInitializer()
+        {
+            CreateMap<Employee, EmployeeDTO>().ReverseMap();
+        }
     }
 }

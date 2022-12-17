@@ -6,6 +6,10 @@ namespace MockInterview.Business.Services
 {
     internal class EmployeeServiceAsync : IEmployeeServiceAsync
     {
+        public EmployeeServiceAsync()
+        {
+
+        }
         public Task<HttpResponse<EmployeeDTO>> Create(EmployeeDTO model)
         {
             throw new NotImplementedException();
