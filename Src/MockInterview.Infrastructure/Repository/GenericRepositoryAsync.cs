@@ -121,5 +121,24 @@ namespace MockInterview.Infrastructure.Repository
                 return false;
             }
         }
+
+        /// <summary>
+        /// Get page entities
+        /// </summary>
+        /// <param name="pageNumber"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public virtual async Task<(IEnumerable<T> entities, int count)> GetPageListAsync(int pageNumber, int pageSize)
+        {
+            var entities = await  dbSet.AsNoTracking()
+                .Where(entity => entity.IsActive)
+                    .Skip(pageNumber).Take(pageSize).ToListAsync();
+
+            var count = await dbSet.AsNoTracking()
+                .Where(entity => entity.IsActive).CountAsync();
+
+            return (entities, count);
+        }
     }
 }

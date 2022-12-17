@@ -20,7 +20,8 @@ namespace MockInterview.Infrastructure.Data.SeedData
                 Level = Level.None,
                 Experience = TimeSpan.Zero,
                 Login = "admin",
-                Password = "admin"
+                Password = "admin",
+                PhoneNumber = "1111",
             });
         }
     }

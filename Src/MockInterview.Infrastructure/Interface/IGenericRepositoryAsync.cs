@@ -11,5 +11,6 @@ namespace MockInterview.Infrastructure.Interface
         Task<(IEnumerable<T> entities, int count)> GetAllAsync();
         Task<T> FindAsync(Expression<Func<T, bool>> expression);
         Task<T> FindAsync(Expression<Func<T, bool>> expression, List<string> tables);
+        Task<(IEnumerable<T> entities, int count)> GetPageListAsync(int pageNumber, int pageSize);
     }
 }

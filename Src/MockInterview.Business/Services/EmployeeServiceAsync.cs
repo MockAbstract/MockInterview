@@ -62,7 +62,7 @@ namespace MockInterview.Business.Services
             return response;
         }
 
-        public async Task<HttpResponse<EmployeeDTO>> GetById(Guid id)
+        public virtual async Task<HttpResponse<EmployeeDTO>> GetById(Guid id)
         {
             var employe = await employeeRepositoryAsync.FindAsync(employe => employe.Id.Equals(id));
             response.Result = mapper.Map<IEnumerable<EmployeeDTO>>(new List<Employee> { employe});
@@ -70,16 +70,30 @@ namespace MockInterview.Business.Services
             return response;
         }
 
-        public Task<HttpResponse<EmployeeDTO>> GetPageListAsync(int pageNumber, int pageSize)
+        public virtual async Task<HttpResponse<EmployeeDTO>> GetPageListAsync(int pageNumber, int pageSize)
         {
-            throw new NotImplementedException();
+            var employes = await employeeRepositoryAsync.GetPageListAsync(pageNumber, pageSize);
+
+            response.TotalCount = employes.count;
+            response.Result = mapper.Map<IEnumerable<EmployeeDTO>>(employes.entities);
+
+            return response;
         }
 
-       
-
-        public Task<HttpResponse<EmployeeDTO>> Update(EmployeeDTO model)
+        public virtual async Task<HttpResponse<EmployeeDTO>> Update(EmployeeDTO model)
         {
-            throw new NotImplementedException();
+            bool isSuccess = false;
+            var entity = mapper.Map<Employee>(model);
+
+            if (!entity.Equals(null))
+            {
+                isSuccess = employeeRepositoryAsync.UpdateAsync(entity);
+                response.IsSuccess = isSuccess;
+
+                return response;
+            }
+
+            return response;
         }
         #region LoginMethod
         /// <summary>
@@ -107,8 +121,7 @@ namespace MockInterview.Business.Services
             return new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, employee.Id.ToString()),
-                new Claim(ClaimTypes.Role, employee.Role.ToString()),
-                new Claim("Permissions", JsonConvert.SerializeObject(employee.Permission))
+                new Claim(ClaimTypes.Role, employee.Role.ToString())
             };
         }
         private string GetToken(List<Claim> claims)

@@ -17,6 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MockInterview.Business\MockInterview.Business.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MockInterview.Domain\MockInterview.Domain.csproj" />
   </ItemGroup>
 
