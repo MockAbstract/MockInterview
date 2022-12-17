@@ -13,15 +13,15 @@ namespace MockInterview.Business.Services
 {
     internal class EmployeeServiceAsync : IEmployeeServiceAsync
     {
-        private readonly IEmployeeRepositoryAsync employeeRepository;
+        private readonly IEmployeeRepositoryAsync employeeRepositoryAsync;
         private readonly IMapper mapper;
         private HttpResponse<EmployeeDTO> response;
 
-        public EmployeeServiceAsync(IEmployeeRepositoryAsync employeeRepository, IMapper mapper, HttpResponse<EmployeeDTO> response)
+        public EmployeeServiceAsync(IEmployeeRepositoryAsync employeeRepositoryAsync, IMapper mapper, HttpResponse<EmployeeDTO> response)
         {
             this.employeeRepositoryAsync = employeeRepositoryAsync;
             this.mapper = mapper;
-            response = new HttpResponse<Employee>();
+            response = new HttpResponse<EmployeeDTO>();
         }
         public Task<HttpResponse<EmployeeDTO>> Create(EmployeeDTO model)
         {
@@ -30,14 +30,14 @@ namespace MockInterview.Business.Services
 
         public virtual async Task<HttpResponse<EmployeeDTO>> Delete(Guid Id)
         {
-            bool isSucces = await employeeRepository.RemoveAsync(Id);
+            bool isSucces = await employeeRepositoryAsync.RemoveAsync(Id);
             response.IsSuccess = isSucces;
             return response;
         }
 
         public virtual async Task<HttpResponse<EmployeeDTO>> GetAll()
         {
-            var employes =  await employeeRepository.GetAllAsync();
+            var employes =  await employeeRepositoryAsync.GetAllAsync();
 
             response.TotalCount = employes.count;
             response.Result = mapper.Map<IEnumerable<EmployeeDTO>>(employes.entities);
@@ -47,7 +47,7 @@ namespace MockInterview.Business.Services
 
         public async Task<HttpResponse<EmployeeDTO>> GetById(Guid id)
         {
-            var employe = await employeeRepository.FindAsync(employe => employe.Id.Equals(id));
+            var employe = await employeeRepositoryAsync.FindAsync(employe => employe.Id.Equals(id));
             response.Result = mapper.Map<IEnumerable<EmployeeDTO>>(new List<Employee> { employe});
 
             return response;
