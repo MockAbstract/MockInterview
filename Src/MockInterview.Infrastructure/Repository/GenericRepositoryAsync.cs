@@ -92,9 +92,12 @@ namespace MockInterview.Infrastructure.Repository
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public virtual async Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<(IEnumerable<T> entities, int count)> GetAllAsync()
         {
-            return await dbSet.AsNoTracking().Where(entity => entity.IsActive.Equals(true)).ToListAsync();
+            var entities = await dbSet.AsNoTracking()
+                .Where(entity => entity.IsActive.Equals(true)).ToListAsync();
+
+            return (entities, entities.Count);
         }
 
         /// <summary>

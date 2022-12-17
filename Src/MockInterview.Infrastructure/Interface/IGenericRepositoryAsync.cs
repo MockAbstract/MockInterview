@@ -8,7 +8,7 @@ namespace MockInterview.Infrastructure.Interface
         Task<bool> InsertAsync(T entity);
         bool UpdateAsync(T entity);
         Task<bool> RemoveAsync(Guid id);
-        Task<IEnumerable<T>> GetAllAsync();
+        Task<(IEnumerable<T> entities, int count)> GetAllAsync();
         Task<T> FindAsync(Expression<Func<T, bool>> expression);
         Task<T> FindAsync(Expression<Func<T, bool>> expression, List<string> tables);
     }
