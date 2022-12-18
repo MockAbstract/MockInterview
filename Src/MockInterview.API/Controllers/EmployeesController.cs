@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MockInterview.Business.Interface;
-using MockInterview.Domain.Entities;
 using MockInterview.Domain.Models;
 using MockInterview.Domain.Models.EmployeeDTO;
 using System.Security.Claims;
