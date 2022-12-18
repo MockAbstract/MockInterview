@@ -12,11 +12,15 @@ namespace MockInterview.Business.Helper
         {
             CreateMap<Employee, EmployeeDTO>().ReverseMap();
             CreateMap<Employee, EmployeeForGetDTO>().ReverseMap();
-
-            CreateMap<Client, ClientDTO>().ReverseMap();
             CreateMap<Employee, EmployeeForGetDTO>().ReverseMap();
-            CreateMap<Category, CategoryDTO>().ReverseMap();
+
             CreateMap<Client, ClientForGetDTO>().ReverseMap();
+            CreateMap<Client, ClientDTO>().ReverseMap();
+
+            CreateMap<Category, CategoryDTO>().ReverseMap();
+            CreateMap<Category, CategoryForCreationDTO>().ReverseMap();
+            CreateMap<Category, CategoryForGetDTO>().ReverseMap();
+
         }
     }
 }

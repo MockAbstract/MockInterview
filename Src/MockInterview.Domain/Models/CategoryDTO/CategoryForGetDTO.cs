@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MockInterview.Domain.Models.CategoryDTO
 {
-    public class CategoryDTO
+    public class CategoryForGetDTO : CategoryDTO
     {
         public virtual Guid Id { get; set; }
 
