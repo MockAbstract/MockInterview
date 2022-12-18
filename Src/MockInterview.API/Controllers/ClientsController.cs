@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MockInterview.Business.Interface;
-using MockInterview.Domain.Models.EmployeeDTO;
 using MockInterview.Domain.Models;
 using MockInterview.Domain.Models.ClientDTO;
+using MockInterview.Domain.Models.EmployeeDTO;
 using System.Security.Claims;
 
 namespace MockInterview.API.Controllers
@@ -24,9 +22,7 @@ namespace MockInterview.API.Controllers
         [ProducesResponseType(typeof(HttpResponse<ClientDTO>), 200)]
         public async Task<IActionResult> GetClients()
         {
-            ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
-
-            var response = await clientServiceAsync.GetAll();
+            var response = await clientServiceAsync.GetAllAsync();
 
             return StatusCode(response.StatusCode, response);
         }
@@ -35,7 +31,7 @@ namespace MockInterview.API.Controllers
         [ProducesResponseType(typeof(HttpResponse<ClientDTO>), 200)]
         public async Task<IActionResult> GetClientById([FromQuery] Guid id)
         {
-            var response = await clientServiceAsync.GetById(id);
+            var response = await clientServiceAsync.GetByIdAsync(id);
 
             return StatusCode(response.StatusCode, response);
         }

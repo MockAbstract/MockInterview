@@ -27,7 +27,7 @@ namespace MockInterview.Domain.Entities
         [Required]
         public string Password { get; set; }
 
-        public DateTimeOffset RegisterDate { get; set; } = DateTime.Now;
+        public DateTimeOffset RegisterDate { get; set; } = DateTimeOffset.UtcNow;
 
         public virtual DateTimeOffset ExperienceStartDate { get; set; }
 

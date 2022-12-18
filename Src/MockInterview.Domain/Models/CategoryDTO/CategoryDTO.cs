@@ -1,4 +1,4 @@
-﻿using MockInterview.Domain.Entities;
+﻿using MockInterview.Domain.Models.EmployeeDTO;
 using System.ComponentModel.DataAnnotations;
 
 namespace MockInterview.Domain.Models.CategoryDTO
@@ -12,6 +12,6 @@ namespace MockInterview.Domain.Models.CategoryDTO
         public string Description { get; set; }
 
         [Required]
-        public virtual IEnumerable<Employee> Specialist { get; set; }
+        public virtual IEnumerable<EmployeeForGetDTO> Specialist { get; set; }
     }
 }

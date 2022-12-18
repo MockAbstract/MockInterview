@@ -23,7 +23,7 @@ namespace MockInterview.API.Controllers
         [ProducesResponseType(typeof(HttpResponse<EmployeeDTO>), 200)]
         public async Task<IActionResult> GetEmployeesAsync()
         {
-            var response = await employeeServiceAsync.GetAll();
+            var response = await employeeServiceAsync.GetAllAsync();
 
             return StatusCode(response.StatusCode, response);
         }
@@ -31,7 +31,7 @@ namespace MockInterview.API.Controllers
         [HttpGet("id")]
         public async Task<IActionResult> GetEmployeeById([FromQuery]Guid id)
         {
-            var response = await employeeServiceAsync.GetById(id);
+            var response = await employeeServiceAsync.GetByIdAsync(id);
 
             return StatusCode(response.StatusCode, response);
         }
