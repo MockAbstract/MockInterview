@@ -7,7 +7,7 @@ using System.Security.Claims;
 
 namespace MockInterview.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("client-management/clients")]
     [ApiController]
     public class ClientsController : ControllerBase
     {

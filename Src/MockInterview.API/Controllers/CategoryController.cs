@@ -7,8 +7,9 @@ using System.Security.Claims;
 
 namespace MockInterview.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("category-management/category")]
     [ApiController]
+    [Authorize]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryServiceAsync categoryServiceAsync;
