@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MockInterview.Infrastructure.Migrations
 {
-    public partial class FirstMigration : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -90,7 +90,7 @@ namespace MockInterview.Infrastructure.Migrations
                     Level = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     PaymentStatus = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    LinkInterView = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LinkInterview = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -116,9 +116,28 @@ namespace MockInterview.Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Description", "IsActive", "Name" },
+                values: new object[] { new Guid("d0235e1f-76e0-40f1-a16a-1e5cfd3f9191"), "Professional", true, "DOT-NET" });
+
+            migrationBuilder.InsertData(
+                table: "Clients",
+                columns: new[] { "Id", "ExperienceEndDate", "ExperienceStartDate", "FirstName", "ImagePath", "IsActive", "LastName", "Level", "Login", "Password", "PhoneNumber", "RegisterDate" },
+                values: new object[] { new Guid("9f71e85f-b543-4a8f-94b9-95ded10895c4"), new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "Client", null, true, "Client", 0, "client1", "client1", "+998901234567", new DateTimeOffset(new DateTime(2022, 12, 18, 13, 28, 26, 749, DateTimeKind.Unspecified).AddTicks(7625), new TimeSpan(0, 0, 0, 0, 0)) });
+
+            migrationBuilder.InsertData(
                 table: "Employees",
                 columns: new[] { "Id", "CategoryId", "CreatedBy", "CreatedDate", "ExperienceEndDate", "ExperienceStartDate", "FirstName", "ImagePath", "IsActive", "LastModifiedDate", "LastName", "Level", "Login", "Password", "PhoneNumber", "Role", "UpdatedBy" },
-                values: new object[] { new Guid("292b3a32-a2ce-4f53-a5e8-a8a1dcdb2525"), null, new Guid("00000000-0000-0000-0000-000000000000"), new DateTimeOffset(new DateTime(2022, 12, 18, 10, 39, 41, 169, DateTimeKind.Unspecified).AddTicks(8164), new TimeSpan(0, 5, 0, 0, 0)), new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "Nodirxon", null, true, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "Abdumurotov", 0, "admin", "admin", "1111", 0, new Guid("00000000-0000-0000-0000-000000000000") });
+                values: new object[,]
+                {
+                    { new Guid("a0e8ec95-b538-4cb8-af91-254648629a04"), null, new Guid("00000000-0000-0000-0000-000000000000"), new DateTimeOffset(new DateTime(2022, 12, 18, 18, 28, 26, 749, DateTimeKind.Unspecified).AddTicks(7169), new TimeSpan(0, 5, 0, 0, 0)), new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "Mentor", null, true, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "Mentor", 3, "mentor1", "mentor1", "+998999999999", 1, new Guid("00000000-0000-0000-0000-000000000000") },
+                    { new Guid("f198ec07-7b44-414b-bdd3-bb5e7b81ffba"), null, new Guid("00000000-0000-0000-0000-000000000000"), new DateTimeOffset(new DateTime(2022, 12, 18, 18, 28, 26, 749, DateTimeKind.Unspecified).AddTicks(7112), new TimeSpan(0, 5, 0, 0, 0)), new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "Nodirxon", null, true, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "Abdumurotov", 0, "admin", "admin", "1111", 0, new Guid("00000000-0000-0000-0000-000000000000") }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Interviews",
+                columns: new[] { "Id", "CategoryId", "ClientId", "EmployeeId", "EployeId", "InterviewDate", "IsActive", "Level", "LinkInterview", "PaymentStatus", "Price" },
+                values: new object[] { new Guid("d4658d58-b2e3-4fd3-9905-faa634df0083"), new Guid("d0235e1f-76e0-40f1-a16a-1e5cfd3f9191"), new Guid("9f71e85f-b543-4a8f-94b9-95ded10895c4"), null, new Guid("a0e8ec95-b538-4cb8-af91-254648629a04"), new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), true, 1, "youtobe.com", 0m, 100m });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Employees_CategoryId",

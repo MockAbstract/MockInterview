@@ -12,7 +12,9 @@ namespace MockInterview.Domain.Models.InterviewDTO
     public class InterviewForCreationDTO : InterviewDTO
     {
         [JsonIgnore]
-        public override Guid ClientId { get; set; }
+
+        public override Guid Id { get; set; }
+
         [JsonIgnore]
         public override Client Client { get; set; }
 

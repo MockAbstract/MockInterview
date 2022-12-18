@@ -12,8 +12,8 @@ using MockInterview.Infrastructure.Data;
 namespace MockInterview.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221218053941_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20221218132827_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,6 +44,15 @@ namespace MockInterview.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("d0235e1f-76e0-40f1-a16a-1e5cfd3f9191"),
+                            Description = "Professional",
+                            IsActive = true,
+                            Name = "DOT-NET"
+                        });
                 });
 
             modelBuilder.Entity("MockInterview.Domain.Entities.Client", b =>
@@ -93,6 +102,22 @@ namespace MockInterview.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Clients");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("9f71e85f-b543-4a8f-94b9-95ded10895c4"),
+                            ExperienceEndDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            ExperienceStartDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            FirstName = "Client",
+                            IsActive = true,
+                            LastName = "Client",
+                            Level = 0,
+                            Login = "client1",
+                            Password = "client1",
+                            PhoneNumber = "+998901234567",
+                            RegisterDate = new DateTimeOffset(new DateTime(2022, 12, 18, 13, 28, 26, 749, DateTimeKind.Unspecified).AddTicks(7625), new TimeSpan(0, 0, 0, 0, 0))
+                        });
                 });
 
             modelBuilder.Entity("MockInterview.Domain.Entities.Employee", b =>
@@ -163,9 +188,9 @@ namespace MockInterview.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("292b3a32-a2ce-4f53-a5e8-a8a1dcdb2525"),
+                            Id = new Guid("f198ec07-7b44-414b-bdd3-bb5e7b81ffba"),
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
-                            CreatedDate = new DateTimeOffset(new DateTime(2022, 12, 18, 10, 39, 41, 169, DateTimeKind.Unspecified).AddTicks(8164), new TimeSpan(0, 5, 0, 0, 0)),
+                            CreatedDate = new DateTimeOffset(new DateTime(2022, 12, 18, 18, 28, 26, 749, DateTimeKind.Unspecified).AddTicks(7112), new TimeSpan(0, 5, 0, 0, 0)),
                             ExperienceEndDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ExperienceStartDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             FirstName = "Nodirxon",
@@ -177,6 +202,24 @@ namespace MockInterview.Infrastructure.Migrations
                             Password = "admin",
                             PhoneNumber = "1111",
                             Role = 0,
+                            UpdatedBy = new Guid("00000000-0000-0000-0000-000000000000")
+                        },
+                        new
+                        {
+                            Id = new Guid("a0e8ec95-b538-4cb8-af91-254648629a04"),
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedDate = new DateTimeOffset(new DateTime(2022, 12, 18, 18, 28, 26, 749, DateTimeKind.Unspecified).AddTicks(7169), new TimeSpan(0, 5, 0, 0, 0)),
+                            ExperienceEndDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            ExperienceStartDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            FirstName = "Mentor",
+                            IsActive = true,
+                            LastModifiedDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            LastName = "Mentor",
+                            Level = 3,
+                            Login = "mentor1",
+                            Password = "mentor1",
+                            PhoneNumber = "+998999999999",
+                            Role = 1,
                             UpdatedBy = new Guid("00000000-0000-0000-0000-000000000000")
                         });
                 });
@@ -208,7 +251,7 @@ namespace MockInterview.Infrastructure.Migrations
                     b.Property<int>("Level")
                         .HasColumnType("int");
 
-                    b.Property<string>("LinkInterView")
+                    b.Property<string>("LinkInterview")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -227,6 +270,21 @@ namespace MockInterview.Infrastructure.Migrations
                     b.HasIndex("EmployeeId");
 
                     b.ToTable("Interviews");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("d4658d58-b2e3-4fd3-9905-faa634df0083"),
+                            CategoryId = new Guid("d0235e1f-76e0-40f1-a16a-1e5cfd3f9191"),
+                            ClientId = new Guid("9f71e85f-b543-4a8f-94b9-95ded10895c4"),
+                            EployeId = new Guid("a0e8ec95-b538-4cb8-af91-254648629a04"),
+                            InterviewDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            IsActive = true,
+                            Level = 1,
+                            LinkInterview = "youtobe.com",
+                            PaymentStatus = 0m,
+                            Price = 100m
+                        });
                 });
 
             modelBuilder.Entity("MockInterview.Domain.Entities.Employee", b =>
