@@ -29,5 +29,8 @@ namespace MockInterview.Domain.Entities
         
         [Required]
         public decimal PaymentStatus { get; set; }
+
+        [Required]
+        public string LinkInterView { get; set; }
     }
 }
