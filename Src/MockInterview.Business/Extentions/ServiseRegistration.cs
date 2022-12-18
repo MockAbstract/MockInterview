@@ -5,7 +5,6 @@ using MockInterview.Business.Helper;
 using MockInterview.Business.Interface;
 using MockInterview.Business.Services;
 using MockInterview.Domain.Models.AuthOption;
-using System.Text;
 
 namespace MockInterview.Business.Extentions
 {
@@ -17,6 +16,7 @@ namespace MockInterview.Business.Extentions
 
             services.AddScoped<IEmployeeServiceAsync, EmployeeServiceAsync>();
             services.AddScoped<IClientServiceAsync, ClientServiceAsync>();
+            services.AddScoped<IInterviewServiceAsync, InterviewServiceAsync>();
 
             services.AddAuthorization();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
