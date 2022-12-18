@@ -7,7 +7,7 @@ namespace MockInterview.Domain.Models.AuthOption
     {
         public const string ISSUER = "MyIssuer";
         public const string AUDIENCE = "MyAudience";
-        const string KEY = "ThereIsSecurityKey";
+        public const string KEY = "ThereIsSecurityKey";
         public static SymmetricSecurityKey GetSymmetricSecurityKey() =>
             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(KEY));
     }

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MockInterview.Domain.Models.EmployeeDTO
+namespace MockInterview.Domain.Models
 {
     public class LoginModel
     {

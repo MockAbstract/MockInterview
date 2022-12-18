@@ -50,8 +50,9 @@ namespace MockInterview.API.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> CreateAsync(EmployeeForCreationDTO employee)
+        public async Task<IActionResult> CreateAsync(EmployeeForCreationDTO employee, IFormFile file)
         {
+            employee.Image = file;
             ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
             var employeeId = Guid
                 .Parse(identity.FindFirst(ClaimTypes.NameIdentifier).Value); 

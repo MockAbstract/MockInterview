@@ -1,5 +1,7 @@
-﻿using MockInterview.Domain.Enums;
+﻿using Microsoft.AspNetCore.Http;
+using MockInterview.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace MockInterview.Domain.Models.ClientDTO
 {
@@ -30,6 +32,7 @@ namespace MockInterview.Domain.Models.ClientDTO
         public virtual DateTimeOffset ExperienceEndDate { get; set; }
 
         public virtual string ImagePath { get; set; }
+        public virtual DateTimeOffset RegisterDate { get; set; } = DateTime.Now;
 
         [Required]
         [MinLength(5)]
@@ -43,7 +46,7 @@ namespace MockInterview.Domain.Models.ClientDTO
 
         [Compare("Password")]
         public virtual string ConfirmPassword { get; set; }
-
-        public virtual DateTimeOffset RegisterDate { get; set; } = DateTime.Now;
+        [JsonIgnore]
+        public virtual IFormFile Image { get; set; }
     }
 }

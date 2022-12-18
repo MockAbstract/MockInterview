@@ -21,8 +21,8 @@ namespace MockInterview.API.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(HttpResponse<EmployeeDTO>), 200)]
-        public async Task<IActionResult> GetEmployeesAsync()
+        [ProducesResponseType(typeof(HttpResponse<ClientDTO>), 200)]
+        public async Task<IActionResult> GetClients()
         {
             ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
 
@@ -32,8 +32,8 @@ namespace MockInterview.API.Controllers
         }
 
         [HttpGet("id")]
-        [ProducesResponseType(typeof(HttpResponse<EmployeeDTO>), 200)]
-        public async Task<IActionResult> GetEmployeeById([FromQuery] Guid id)
+        [ProducesResponseType(typeof(HttpResponse<ClientDTO>), 200)]
+        public async Task<IActionResult> GetClientById([FromQuery] Guid id)
         {
             var response = await clientServiceAsync.GetById(id);
 
@@ -41,8 +41,8 @@ namespace MockInterview.API.Controllers
         }
 
         [HttpGet("page")]
-        [ProducesResponseType(typeof(HttpResponse<EmployeeDTO>), 200)]
-        public async Task<IActionResult> GetEmployeePageAsync([FromQuery] int pageNumber, int pageSize)
+        [ProducesResponseType(typeof(HttpResponse<ClientDTO>), 200)]
+        public async Task<IActionResult> GetClientPageAsync([FromQuery] int pageNumber, int pageSize)
         {
             var response = await clientServiceAsync
                 .GetPageListAsync(pageNumber, pageSize);
@@ -52,7 +52,7 @@ namespace MockInterview.API.Controllers
         }
 
         [HttpPut]
-        [ProducesResponseType(typeof(HttpResponse<EmployeeDTO>), 200)]
+        [ProducesResponseType(typeof(HttpResponse<ClientDTO>), 200)]
         public async Task<IActionResult> UpdateAsync(ClientForUpdateDTO client)
         {
             ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
@@ -65,7 +65,7 @@ namespace MockInterview.API.Controllers
         }
 
         [HttpDelete("id")]
-        [ProducesResponseType(typeof(HttpResponse<EmployeeDTO>), 200)]
+        [ProducesResponseType(typeof(HttpResponse<ClientDTO>), 200)]
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
             ClaimsIdentity identity = (ClaimsIdentity)User.Identity;

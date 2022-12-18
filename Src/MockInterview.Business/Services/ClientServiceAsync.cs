@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
 using MockInterview.Business.Interface;
 using MockInterview.Domain.Entities;
 using MockInterview.Domain.Models;
 using MockInterview.Domain.Models.AuthOption;
 using MockInterview.Domain.Models.ClientDTO;
-using MockInterview.Domain.Models.EmployeeDTO;
 using MockInterview.Infrastructure.Interface;
 using MockInterview.Infrastructure.Repository;
 using System;
@@ -35,6 +35,7 @@ namespace MockInterview.Business.Services
             {
                 client = mapper.Map<Client>(model);
                 client.RegisterDate = DateTimeOffset.UtcNow;
+                client.ImagePath = await FileServiceAsync.UploadFile(model.Image);
                 bool isSucces = await this.clientRepositoryAsync
                     .InsertAsync(client);
 
@@ -70,7 +71,7 @@ namespace MockInterview.Business.Services
             var clients = await clientRepositoryAsync.GetAllAsync();
 
             response.TotalCount = clients.count;
-            response.Result = mapper.Map<IEnumerable<ClientDTO>>(clients.entities);
+            response.Result = mapper.Map<IEnumerable<ClientForGetDTO>>(clients.entities);
 
             return response;
         }
@@ -78,7 +79,7 @@ namespace MockInterview.Business.Services
         public async Task<HttpResponse<ClientDTO>> GetById(Guid id)
         {
             var client = await clientRepositoryAsync.FindAsync(employe => employe.Id.Equals(id));
-            response.Result = mapper.Map<IEnumerable<ClientDTO>>(new List<Client> { client });
+            response.Result = mapper.Map<IEnumerable<ClientForGetDTO>>(new List<Client> { client });
 
             return response;
         }
@@ -88,7 +89,7 @@ namespace MockInterview.Business.Services
             var clients = await clientRepositoryAsync.GetPageListAsync(pageNumber, pageSize);
 
             response.TotalCount = clients.count;
-            response.Result = mapper.Map<IEnumerable<ClientDTO>>(clients.entities);
+            response.Result = mapper.Map<IEnumerable<ClientForGetDTO>>(clients.entities);
 
             return response;
         }
@@ -158,7 +159,8 @@ namespace MockInterview.Business.Services
                 issuer: AuthOptions.ISSUER,
                 audience: AuthOptions.AUDIENCE,
                 claims: claims,
-                expires: DateTime.UtcNow.AddHours(1)
+                expires: DateTime.UtcNow.AddHours(1),
+                signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256)
                 );
             return new JwtSecurityTokenHandler().WriteToken(jwt);
         }
