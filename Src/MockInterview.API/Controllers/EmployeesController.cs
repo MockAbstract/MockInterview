@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MockInterview.Business.Interface;
 using MockInterview.Domain.Models;
 using MockInterview.Domain.Models.EmployeeDTO;
+using System.Net.Mime;
 using System.Security.Claims;
 
 namespace MockInterview.API.Controllers
@@ -29,7 +30,7 @@ namespace MockInterview.API.Controllers
         }
 
         [HttpGet("id")]
-        public async Task<IActionResult> GetEmployeeById([FromQuery]Guid id)
+        public async Task<IActionResult> GetEmployeeById([FromQuery] Guid id)
         {
             var response = await employeeServiceAsync.GetByIdAsync(id);
 
@@ -37,7 +38,7 @@ namespace MockInterview.API.Controllers
         }
 
         [HttpGet("page")]
-        public async Task<IActionResult> GetEmployeePageAsync([FromQuery]int pageNumber, int pageSize)
+        public async Task<IActionResult> GetEmployeePageAsync([FromQuery] int pageNumber, int pageSize)
         {
             var response = await employeeServiceAsync
                 .GetPageListAsync(pageNumber, pageSize);
@@ -48,16 +49,29 @@ namespace MockInterview.API.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> CreateAsync(EmployeeForCreationDTO employee, IFormFile file)
+        public async Task<IActionResult> CreateAsync([FromQuery] EmployeeForCreationDTO employee)
         {
-            employee.Image = file;
             ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
             var employeeId = Guid
-                .Parse(identity.FindFirst(ClaimTypes.NameIdentifier).Value); 
+                .Parse(identity.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-            var response = await employeeServiceAsync.CreateAsync(employee,employeeId);
+            var response = await employeeServiceAsync.CreateAsync(employee, employeeId);
 
             return StatusCode(response.StatusCode, response);
+        }
+        [HttpPost("image")]
+        public async Task<IActionResult> UpdateImageAsync([FromForm] Guid employeeId, IFormFile file)
+        {
+            string imageExtension = Path.GetExtension(file.FileName);
+
+            if (imageExtension == ".png" || imageExtension == ".jpg")
+            {
+                var response = await employeeServiceAsync.SetImage(employeeId, file);
+
+                return StatusCode(response.StatusCode, response);
+            }
+            return BadRequest("File type must be image");
+
         }
 
         [HttpPut]
@@ -68,7 +82,7 @@ namespace MockInterview.API.Controllers
             var employeeId = Guid
                 .Parse(identity.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-            var response = await employeeServiceAsync.UpdateAsync(employee,employeeId);
+            var response = await employeeServiceAsync.UpdateAsync(employee, employeeId);
 
             return StatusCode(response.StatusCode, response);
         }
@@ -81,7 +95,7 @@ namespace MockInterview.API.Controllers
             var employeeId = Guid
                 .Parse(identity.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-            var response = await employeeServiceAsync.DeleteAsync(id,employeeId);
+            var response = await employeeServiceAsync.DeleteAsync(id, employeeId);
 
             return StatusCode(response.StatusCode, response);
         }

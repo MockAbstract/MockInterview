@@ -59,7 +59,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseStaticFiles();
+app.UseDefaultFiles();
 app.ConfigureExceptionHandler();
 
 app.UseAuthentication();

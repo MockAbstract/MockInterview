@@ -16,6 +16,7 @@ namespace MockInterview.Business.Extentions
 
             services.AddScoped<IEmployeeServiceAsync, EmployeeServiceAsync>();
             services.AddScoped<IClientServiceAsync, ClientServiceAsync>();
+            services.AddScoped<IFileServiceAsync, FileServiceAsync>();
             services.AddScoped<IInterviewServiceAsync, InterviewServiceAsync>();
 
             services.AddAuthorization();
@@ -33,6 +34,8 @@ namespace MockInterview.Business.Extentions
                         ValidateIssuerSigningKey = true
                     };
                 });
+
+
 
         }
     }

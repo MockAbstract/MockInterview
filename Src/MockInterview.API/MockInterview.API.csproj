@@ -24,4 +24,8 @@
     <ProjectReference Include="..\MockInterview.Domain\MockInterview.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>
