@@ -1,4 +1,5 @@
 ﻿using MockInterview.Domain.Enums;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace MockInterview.Domain.Entities
@@ -28,7 +29,7 @@ namespace MockInterview.Domain.Entities
         [Required]
         public string Password { get; set; }
 
-        public DateTime RegisterDate { get; set; } = DateTime.Now;
+        public DateTimeOffset RegisterDate { get; set; } = DateTime.Now;
 
     }
 }

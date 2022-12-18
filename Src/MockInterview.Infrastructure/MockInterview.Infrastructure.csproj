@@ -12,9 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Interface\" />
     <Folder Include="Data\SeedData\" />
-    <Folder Include="Repository\" />
   </ItemGroup>
 
   <ItemGroup>
