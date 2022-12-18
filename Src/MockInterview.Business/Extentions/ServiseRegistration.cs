@@ -17,6 +17,7 @@ namespace MockInterview.Business.Extentions
 
             services.AddScoped<IEmployeeServiceAsync, EmployeeServiceAsync>();
             services.AddScoped<IClientServiceAsync, ClientServiceAsync>();
+            services.AddScoped<IFileServiceAsync, FileServiceAsync>();
 
             services.AddAuthorization();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -33,6 +34,8 @@ namespace MockInterview.Business.Extentions
                         ValidateIssuerSigningKey = true
                     };
                 });
+
+
 
         }
     }

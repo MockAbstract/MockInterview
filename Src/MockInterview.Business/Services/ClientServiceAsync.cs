@@ -19,9 +19,13 @@ namespace MockInterview.Business.Services
         private readonly IClientRepositoryAsync clientRepositoryAsync;
         private readonly IMapper mapper;
         private HttpResponse<ClientDTO> response;
+        private readonly IFileServiceAsync fileServiceAsync;
 
-        public ClientServiceAsync(IClientRepositoryAsync clientRepositoryAsync, IMapper mapper)
+        public ClientServiceAsync(IClientRepositoryAsync clientRepositoryAsync,
+            IMapper mapper,
+            IFileServiceAsync fileServiceAsync)
         {
+            this.fileServiceAsync = fileServiceAsync;
             this.clientRepositoryAsync = clientRepositoryAsync;
             this.mapper = mapper;
             this.response = new HttpResponse<ClientDTO>();
@@ -35,7 +39,7 @@ namespace MockInterview.Business.Services
             {
                 client = mapper.Map<Client>(model);
                 client.RegisterDate = DateTimeOffset.UtcNow;
-                client.ImagePath = await FileServiceAsync.UploadFile(model.Image);
+                client.ImagePath = await fileServiceAsync.UploadFileAsync(model.Image);
                 bool isSucces = await this.clientRepositoryAsync
                     .InsertAsync(client);
 
@@ -43,6 +47,25 @@ namespace MockInterview.Business.Services
                     return response;
             }
 
+            response.IsSuccess = false;
+            response.StatusCode = StatusCodes.Status400BadRequest;
+
+            return response;
+        }
+
+        public async Task<HttpResponse<ClientDTO>> SetImage(Guid clientId, IFormFile file)
+        {
+            var employee = await clientRepositoryAsync.FindAsync(e => e.Id == clientId);
+            if (employee != null)
+            {
+                employee.ImagePath = await fileServiceAsync.UploadFileAsync(file);
+
+                bool isSucces = await clientRepositoryAsync.UpdateAsync(employee);
+
+                if (isSucces)
+                    return response;
+
+            }
             response.IsSuccess = false;
             response.StatusCode = StatusCodes.Status400BadRequest;
 

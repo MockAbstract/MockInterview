@@ -17,12 +17,35 @@ namespace MockInterview.Business.Services
         private readonly IEmployeeRepositoryAsync employeeRepositoryAsync;
         private readonly IMapper mapper;
         private HttpResponse<EmployeeDTO> response;
+        private readonly IFileServiceAsync fileServiceAsync;
 
-        public EmployeeServiceAsync(IEmployeeRepositoryAsync employeeRepositoryAsync, IMapper mapper)
+        public EmployeeServiceAsync(IEmployeeRepositoryAsync employeeRepositoryAsync,
+            IMapper mapper,
+            IFileServiceAsync fileServiceAsync
+            )
         {
             this.employeeRepositoryAsync = employeeRepositoryAsync;
             this.mapper = mapper;
             this.response = new HttpResponse<EmployeeDTO>();
+            this.fileServiceAsync = fileServiceAsync;
+        }
+        public async Task<HttpResponse<EmployeeDTO>> SetImage(Guid employeeId, IFormFile file)
+        {
+            var employee = await employeeRepositoryAsync.FindAsync(e => e.Id == employeeId);
+            if (employee != null)
+            {
+                employee.ImagePath = await fileServiceAsync.UploadFileAsync(file);
+
+                bool isSucces = await employeeRepositoryAsync.UpdateAsync(employee);
+
+                if (isSucces)
+                    return response;
+
+            }
+            response.IsSuccess = false;
+            response.StatusCode = StatusCodes.Status400BadRequest;
+
+            return response;
         }
         public async Task<HttpResponse<EmployeeDTO>> CreateAsync(EmployeeDTO model, Guid currentId)
         {
@@ -34,7 +57,6 @@ namespace MockInterview.Business.Services
                 employee = mapper.Map<Employee>(model);
                 employee.CreatedDate = DateTimeOffset.UtcNow;
                 employee.CreatedBy = currentId;
-                employee.ImagePath = await FileServiceAsync.UploadFile(model.Image);
                 bool isSucces = await this.employeeRepositoryAsync
                     .InsertAsync(employee);
 
