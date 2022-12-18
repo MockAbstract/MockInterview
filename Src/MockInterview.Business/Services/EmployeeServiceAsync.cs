@@ -5,7 +5,6 @@ using MockInterview.Domain.Models;
 using MockInterview.Domain.Models.AuthOption;
 using MockInterview.Domain.Models.EmployeeDTO;
 using MockInterview.Infrastructure.Interface;
-using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
