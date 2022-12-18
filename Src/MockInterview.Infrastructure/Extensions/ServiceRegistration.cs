@@ -18,6 +18,7 @@ namespace MockInterview.Infrastructure.Extensions
             services.AddTransient<IEmployeeRepositoryAsync, EmployeeRepositoryAsync>();
             services.AddTransient<IClientRepositoryAsync, ClientRepositoryAsync>();
             services.AddTransient<ICategoryRepositoryAsync, CategoryRepositoryAsync>();
+            services.AddTransient<IInterviewRepositoryAsync, InterviewRepositoryAsync>();
         }
     }
 }
