@@ -32,6 +32,7 @@ namespace MockInterview.Business.Services
             {
                 employee = mapper.Map<Employee>(model);
                 employee.CreatedDate = DateTimeOffset.UtcNow;
+                employee.CreatedBy = currentId;
                 bool isSucces = await this.employeeRepositoryAsync
                     .InsertAsync(employee);
 
@@ -47,7 +48,7 @@ namespace MockInterview.Business.Services
 
         public virtual async Task<HttpResponse<EmployeeDTO>> DeleteAsync(Guid Id, Guid currentId)
         {
-            bool isSucces = await employeeRepositoryAsync.RemoveAsync(Id);
+            bool isSucces = await employeeRepositoryAsync.RemoveAsync(Id, currentId);
             response.IsSuccess = isSucces;
 
             return response;
@@ -91,6 +92,7 @@ namespace MockInterview.Business.Services
             {
                 var employee = mapper.Map<Employee>(model);
                 employee.LastModifiedDate= DateTime.UtcNow;
+                employee.UpdatedBy = currentId;
                 await employeeRepositoryAsync.UpdateAsync(employee);
             }
             else

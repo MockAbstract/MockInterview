@@ -25,7 +25,9 @@ namespace MockInterview.Domain.Models.ClientDTO
         [Phone]
         public virtual string PhoneNumber { get; set; }
 
-        public virtual TimeSpan Experience { get; set; }
+        public virtual DateTimeOffset ExperienceStartDate { get; set; }
+
+        public virtual DateTimeOffset ExperienceEndDate { get; set; }
 
         public virtual string ImagePath { get; set; }
 

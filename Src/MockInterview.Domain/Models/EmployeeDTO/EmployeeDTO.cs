@@ -20,8 +20,6 @@ namespace MockInterview.Domain.Models.EmployeeDTO
         [Required]
         public virtual string PhoneNumber { get; set; }
 
-        public virtual TimeSpan Experience { get; set; }
-
         public virtual string ImagePath { get; set; }
 
         [Required]
@@ -34,6 +32,10 @@ namespace MockInterview.Domain.Models.EmployeeDTO
 
         [Compare("Password")]
         public virtual string ConfirmPassword { get; set; }
+
+        public virtual DateTimeOffset ExperienceStartDate { get; set; }
+
+        public virtual DateTimeOffset ExperienceEndDate { get; set; }
 
         [Required]
         public virtual Role Role { get; set; }
