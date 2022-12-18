@@ -23,7 +23,7 @@ namespace MockInterview.Business.Services
             this.mapper = mapper;
             this.response = new HttpResponse<EmployeeDTO>();
         }
-        public async Task<HttpResponse<EmployeeDTO>> CreateAsync(EmployeeDTO model)
+        public async Task<HttpResponse<EmployeeDTO>> CreateAsync(EmployeeDTO model, Guid currentId)
         {
             var employee = await this.employeeRepositoryAsync
                 .FindAsync(m => m.Login == model.Login);
@@ -31,6 +31,7 @@ namespace MockInterview.Business.Services
             if (employee == null)
             {
                 employee = mapper.Map<Employee>(model);
+                employee.CreatedDate = DateTimeOffset.UtcNow;
                 bool isSucces = await this.employeeRepositoryAsync
                     .InsertAsync(employee);
 
@@ -44,10 +45,11 @@ namespace MockInterview.Business.Services
             return response;
         }
 
-        public virtual async Task<HttpResponse<EmployeeDTO>> DeleteAsync(Guid Id)
+        public virtual async Task<HttpResponse<EmployeeDTO>> DeleteAsync(Guid Id, Guid currentId)
         {
             bool isSucces = await employeeRepositoryAsync.RemoveAsync(Id);
             response.IsSuccess = isSucces;
+
             return response;
         }
 
@@ -79,7 +81,7 @@ namespace MockInterview.Business.Services
             return response;
         }
 
-        public virtual async Task<HttpResponse<EmployeeDTO>> UpdateAsync(EmployeeDTO model)
+        public virtual async Task<HttpResponse<EmployeeDTO>> UpdateAsync(EmployeeDTO model, Guid currentId)
         {
             HttpResponse<EmployeeDTO> response = new();
             var ExistUser = await employeeRepositoryAsync
@@ -87,20 +89,20 @@ namespace MockInterview.Business.Services
 
             if (ExistUser == null || ExistUser.Id == model.Id)
             {
-                var user = mapper.Map<Employee>(model);
-
-                await employeeRepositoryAsync.UpdateAsync(user);
+                var employee = mapper.Map<Employee>(model);
+                employee.LastModifiedDate= DateTime.UtcNow;
+                await employeeRepositoryAsync.UpdateAsync(employee);
             }
             else
             {
                 response.IsSuccess = false;
                 response.StatusMessage = "Username is already exist";
-                response.StatusCode = Microsoft.AspNetCore.Http
-                    .StatusCodes.Status400BadRequest;
+                response.StatusCode = StatusCodes.Status400BadRequest;
             }
 
             return response;
         }
+
         #region LoginMethod
         /// <summary>
         /// Login Method

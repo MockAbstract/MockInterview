@@ -150,7 +150,7 @@ namespace MockInterview.Infrastructure.Repository
         {
             var entities = await  dbSet.AsNoTracking()
                 .Where(entity => entity.IsActive)
-                    .Skip(pageNumber).Take(pageSize).ToListAsync();
+                    .Skip((pageNumber - 1)*pageSize).Take(pageSize).ToListAsync();
 
             var count = await dbSet.AsNoTracking()
                 .Where(entity => entity.IsActive).CountAsync();

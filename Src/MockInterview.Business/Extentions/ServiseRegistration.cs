@@ -11,8 +11,9 @@ namespace MockInterview.Business.Extentions
         {
             services.AddAutoMapper(typeof(MappingInitializer));
 
-            services.AddTransient<IEmployeeServiceAsync, EmployeeServiceAsync>();
+            services.AddScoped<IEmployeeServiceAsync, EmployeeServiceAsync>();
 
+            services.AddScoped<IClientServiceAsync, ClientServiceAsync>();
         }
     }
 }

@@ -16,5 +16,6 @@ namespace MockInterview.Infrastructure.Repository
 
         public async Task<Employee> LoginAsync(string login, string password) => 
             await FindAsync(e => e.Login == login && e.Password== password);
+
     }
 }
