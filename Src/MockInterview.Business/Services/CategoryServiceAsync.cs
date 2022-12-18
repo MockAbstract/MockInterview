@@ -28,7 +28,7 @@ namespace MockInterview.Business.Services
                 .FindAsync(category => category.Name.Equals(model.Name));
 
 
-            if (entity.Equals(null))
+            if (entity is null)
             {
                 isSuccess = await categoryRepositoryAsync.InsertAsync(mapper.Map<Category>(model));
                 response.IsSuccess = isSuccess;
@@ -78,9 +78,9 @@ namespace MockInterview.Business.Services
         public virtual async Task<HttpResponse<CategoryDTO>> UpdateAsync(CategoryDTO model, Guid currentId)
         {
             var existCategory = await categoryRepositoryAsync
-                .FindAsync(category => category.Name.Equals(model.Name));
+                .FindAsync(category => category.Id.Equals(model.Id));
 
-            if(existCategory is null)
+            if(existCategory is not null)
             {
                 var category = mapper.Map<Category>(model);
                 await categoryRepositoryAsync.UpdateAsync(category);
@@ -88,7 +88,7 @@ namespace MockInterview.Business.Services
             else
             {
                 response.IsSuccess = false;
-                response.StatusMessage = "Category is already exist";
+                response.StatusMessage = "This category is not";
                 response.StatusCode = StatusCodes.Status400BadRequest;
             }
 
