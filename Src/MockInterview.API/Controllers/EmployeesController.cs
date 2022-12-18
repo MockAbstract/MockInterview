@@ -49,7 +49,7 @@ namespace MockInterview.API.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> CreateAsync([FromQuery] EmployeeForCreationDTO employee)
+        public async Task<IActionResult> CreateAsync([FromBody] EmployeeForCreationDTO employee)
         {
             ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
             var employeeId = Guid

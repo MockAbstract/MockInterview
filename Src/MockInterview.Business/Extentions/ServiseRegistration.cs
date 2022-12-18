@@ -13,7 +13,7 @@ namespace MockInterview.Business.Extentions
         public static void AddBusinessLayer(this IServiceCollection services)
         {
             services.AddAutoMapper(typeof(MappingInitializer));
-
+            services.AddScoped<ICategoryServiceAsync, CategoryServiceAsync>();
             services.AddScoped<IEmployeeServiceAsync, EmployeeServiceAsync>();
             services.AddScoped<IClientServiceAsync, ClientServiceAsync>();
             services.AddScoped<IFileServiceAsync, FileServiceAsync>();
