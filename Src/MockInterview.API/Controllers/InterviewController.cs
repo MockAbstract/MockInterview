@@ -1,12 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MockInterview.Business.Interface;
-using MockInterview.Domain.Entities;
 using MockInterview.Domain.Models;
 using MockInterview.Domain.Models.InterviewDTO;
-using System.Runtime.CompilerServices;
 using System.Security.Claims;
-using System.Security.Principal;
 
 namespace MockInterview.API.Controllers
 {

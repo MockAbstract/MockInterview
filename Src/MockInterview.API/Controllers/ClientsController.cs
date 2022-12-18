@@ -23,6 +23,7 @@ namespace MockInterview.API.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(HttpResponse<ClientDTO>), 200)]
+        [Authorize(Roles = "Admin, Expert")]
         public async Task<IActionResult> GetClients()
         {
             var response = await clientServiceAsync.GetAllAsync();
@@ -56,6 +57,7 @@ namespace MockInterview.API.Controllers
         }
 
         [HttpGet("page")]
+        [Authorize(Roles = "Admin, Expert")]
         [ProducesResponseType(typeof(HttpResponse<ClientDTO>), 200)]
         public async Task<IActionResult> GetClientPageAsync([FromQuery] int pageNumber, int pageSize)
         {
