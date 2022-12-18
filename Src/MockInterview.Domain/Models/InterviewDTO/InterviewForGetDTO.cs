@@ -1,6 +1,6 @@
 ﻿namespace MockInterview.Domain.Models.InterviewDTO
 {
-    internal class InterviewForGetDTO : InterviewDTO
+    public class InterviewForGetDTO : InterviewDTO
     {
     }
 }

@@ -17,9 +17,7 @@ namespace MockInterview.API.Controllers
             this.interviewServiceAsync = interviewServiceAsync;
         }
 
-        [HttpGet]
-        [ProducesResponseType(typeof(HttpResponse<InterviewDTO>), 200)]
-        public virtual async Task<IActionResult> GetInterview()
+
 
     }
 }

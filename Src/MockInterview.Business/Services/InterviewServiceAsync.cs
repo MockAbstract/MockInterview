@@ -39,14 +39,22 @@ namespace MockInterview.Business.Services
             throw new NotImplementedException();
         }
 
-        public Task<HttpResponse<InterviewDTO>> GetAllAsync()
+        public virtual async Task<HttpResponse<InterviewDTO>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var interviews = await interviewRepositoryAsync.GetAllAsync();
+
+            response.TotalCount = interviews.count;
+            response.Result = mapper.Map<IEnumerable<InterviewDTO>>(interviews.entities);
+
+            return response;
         }
 
-        public Task<HttpResponse<InterviewDTO>> GetByIdAsync(Guid id)
+        public virtual async Task<HttpResponse<InterviewDTO>> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var interview = await interviewRepositoryAsync.FindAsync(interview => interview.Id.Equals(id));
+            response.Result = mapper.Map<IEnumerable<InterviewForGetDTO>>(new List<Interview> { interview });
+
+            return response;
         }
 
         public Task<HttpResponse<InterviewDTO>> GetPageListAsync(int pageNumber, int pageSize)
