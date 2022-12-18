@@ -18,5 +18,9 @@ namespace MockInterview.Domain.Models.EmployeeDTO
 
         [JsonIgnore]
         public override DateTimeOffset LastModifiedDate { get; set; }
+
+        [JsonIgnore]
+        public override string ImagePath { get; set; }
+
     }
 }
