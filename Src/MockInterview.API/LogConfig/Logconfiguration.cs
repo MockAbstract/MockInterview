@@ -12,7 +12,7 @@ namespace MockInterview.API.LogConfig
             .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
             .Enrich.FromLogContext()
             .WriteTo.Console()
-            .WriteTo.File("LogFiles/log.txt",
+            .WriteTo.File("Logs/log.txt",
              outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}",
              rollingInterval: RollingInterval.Day,
              restrictedToMinimumLevel: LogEventLevel.Warning
