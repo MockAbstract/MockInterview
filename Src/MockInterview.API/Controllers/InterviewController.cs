@@ -22,6 +22,7 @@ namespace MockInterview.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, Expert")]
         public async Task<IActionResult> CreateAsync([FromBody] InterviewForCreationDTO interview)
         {
             ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
@@ -34,6 +35,7 @@ namespace MockInterview.API.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin, Expert")]
         public async Task<IActionResult> UpdateAsync([FromBody] InterviewForModifiedDTO interview)
         {
             ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
@@ -46,6 +48,7 @@ namespace MockInterview.API.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin, Expert")]
         public async Task<IActionResult> DeleteAsync(Guid Id)
         {
             ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
