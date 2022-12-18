@@ -15,7 +15,7 @@ namespace MockInterview.Infrastructure.Extensions
                 configuration.GetConnectionString("DefaultSqlServerConnection")
                 ));
 
-            services.AddScoped<IEmployeeRepositoryAsync, EmployeeRepositoryAsync>();
+            services.AddTransient<IEmployeeRepositoryAsync, EmployeeRepositoryAsync>();
 
         }
     }

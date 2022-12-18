@@ -10,10 +10,10 @@ namespace MockInterview.Business.Interface
 
         Task<HttpResponse<TModel>> GetPageListAsync(int pageNumber, int pageSize);
 
-        Task<HttpResponse<TModel>> Create(TModel model);
+        Task<HttpResponse<TModel>> CreateAsync(TModel model);
 
-        Task<HttpResponse<TModel>> Update(TModel model);
+        Task<HttpResponse<TModel>> UpdateAsync(TModel model);
 
-        Task<HttpResponse<TModel>> Delete(Guid Id);
+        Task<HttpResponse<TModel>> DeleteAsync(Guid Id);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using MockInterview.Business.Interface;
 using MockInterview.Domain.Entities;
 using MockInterview.Domain.Models;
@@ -16,18 +17,34 @@ namespace MockInterview.Business.Services
         private readonly IMapper mapper;
         private HttpResponse<EmployeeDTO> response;
 
-        public EmployeeServiceAsync(IEmployeeRepositoryAsync employeeRepositoryAsync, IMapper mapper, HttpResponse<EmployeeDTO> response)
+        public EmployeeServiceAsync(IEmployeeRepositoryAsync employeeRepositoryAsync, IMapper mapper)
         {
             this.employeeRepositoryAsync = employeeRepositoryAsync;
             this.mapper = mapper;
-            response = new HttpResponse<EmployeeDTO>();
+            this.response = new HttpResponse<EmployeeDTO>();
         }
-        public Task<HttpResponse<EmployeeDTO>> Create(EmployeeDTO model)
+        public async Task<HttpResponse<EmployeeDTO>> CreateAsync(EmployeeDTO model)
         {
-            throw new NotImplementedException();
+            var employee = await this.employeeRepositoryAsync
+                .FindAsync(m => m.Login == model.Login);
+
+            if (employee == null)
+            {
+                employee = mapper.Map<Employee>(model);
+                bool isSucces = await this.employeeRepositoryAsync
+                    .InsertAsync(employee);
+
+                if (isSucces)
+                    return response;
+            }
+
+            response.IsSuccess = false;
+            response.StatusCode = StatusCodes.Status400BadRequest;
+
+            return response;
         }
 
-        public virtual async Task<HttpResponse<EmployeeDTO>> Delete(Guid Id)
+        public virtual async Task<HttpResponse<EmployeeDTO>> DeleteAsync(Guid Id)
         {
             bool isSucces = await employeeRepositoryAsync.RemoveAsync(Id);
             response.IsSuccess = isSucces;
@@ -62,17 +79,24 @@ namespace MockInterview.Business.Services
             return response;
         }
 
-        public virtual async Task<HttpResponse<EmployeeDTO>> Update(EmployeeDTO model)
+        public virtual async Task<HttpResponse<EmployeeDTO>> UpdateAsync(EmployeeDTO model)
         {
-            bool isSuccess = false;
-            var entity = mapper.Map<Employee>(model);
+            HttpResponse<EmployeeDTO> response = new();
+            var ExistUser = await employeeRepositoryAsync
+                .FindAsync(u => u.Login == model.Login);
 
-            if (!entity.Equals(null))
+            if (ExistUser == null || ExistUser.Id == model.Id)
             {
-                isSuccess = employeeRepositoryAsync.UpdateAsync(entity);
-                response.IsSuccess = isSuccess;
+                var user = mapper.Map<Employee>(model);
 
-                return response;
+                await employeeRepositoryAsync.UpdateAsync(user);
+            }
+            else
+            {
+                response.IsSuccess = false;
+                response.StatusMessage = "Username is already exist";
+                response.StatusCode = Microsoft.AspNetCore.Http
+                    .StatusCodes.Status400BadRequest;
             }
 
             return response;

@@ -1,6 +1,6 @@
 ﻿namespace MockInterview.Domain.Models
 {
-    public class HttpResponse<TEntity>
+    public class HttpResponse<TEntity> where TEntity : class
     {
         public int TotalCount { get; set; }
         public IEnumerable<TEntity> Result { get; set; }

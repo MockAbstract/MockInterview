@@ -38,9 +38,6 @@ namespace MockInterview.Domain.Models.EmployeeDTO
         [Required]
         public virtual Role Role { get; set; }
 
-        [Required]
-        public virtual string[] Permission { get; set; }
-
         public virtual Guid CreatedBy { get; set; }
 
         public virtual Guid UpdatedBy { get; set; }

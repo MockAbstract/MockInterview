@@ -6,5 +6,6 @@ namespace MockInterview.Business.Interface
     public interface IEmployeeServiceAsync : IGenericServiceAsync<EmployeeDTO>
     {
         Task<HttpResponse<string>> LoginAsync(LoginModel login);
+
     }
 }
