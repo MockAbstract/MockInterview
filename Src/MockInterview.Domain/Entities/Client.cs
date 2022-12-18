@@ -19,8 +19,6 @@ namespace MockInterview.Domain.Entities
         [Required]
         public string PhoneNumber { get; set; }
 
-        public TimeSpan Experience { get; set; }
-
         public string ImagePath { get; set; }
 
         [Required]
@@ -30,6 +28,10 @@ namespace MockInterview.Domain.Entities
         public string Password { get; set; }
 
         public DateTimeOffset RegisterDate { get; set; } = DateTime.Now;
+
+        public virtual DateTimeOffset ExperienceStartDate { get; set; }
+
+        public virtual DateTimeOffset ExperienceEndDate { get; set; }
 
     }
 }
