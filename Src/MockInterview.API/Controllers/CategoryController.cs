@@ -21,7 +21,7 @@ namespace MockInterview.API.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(HttpResponse<CategoryDTO>), 200)]
-        public virtual async Task<IActionResult> GetCategoryAsync()
+        public async Task<IActionResult> GetCategoryAsync()
         {
             var response = await categoryServiceAsync.GetAllAsync();
 
@@ -30,7 +30,7 @@ namespace MockInterview.API.Controllers
 
         [HttpGet("id")]
         [ProducesResponseType(typeof(HttpResponse<CategoryDTO>), 200)]
-        public virtual async Task<IActionResult> GetCategoryByIdAsync([FromQuery] Guid id)
+        public async Task<IActionResult> GetCategoryByIdAsync([FromQuery] Guid id)
         {
             var response = await categoryServiceAsync.GetByIdAsync(id);
 
