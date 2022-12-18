@@ -6,31 +6,32 @@ namespace MockInterview.Domain.Models.InterviewDTO
 {
     public class InterviewDTO
     {
+        public virtual Guid Id { get; set; }
         [Required]
-        public Guid ClientId { get; set; }
-        public Client Client { get; set; }
+        public virtual Guid ClientId { get; set; }
+        public virtual Client Client { get; set; }
 
         [Required]
-        public Guid CategoryId { get; set; }
-        public Category Category { get; set; }
+        public virtual Guid CategoryId { get; set; }
+        public virtual Category Category { get; set; }
 
         [Required]
-        public Guid EployeId { get; set; }
-        public Employee Employee { get; set; }
+        public virtual Guid EployeId { get; set; }
+        public virtual Employee Employee { get; set; }
 
         [Required]
-        public DateTimeOffset InterviewDate { get; set; }
+        public virtual DateTimeOffset InterviewDate { get; set; }
 
         [Required]
-        public Level Level { get; set; }
+        public virtual Level Level { get; set; }
 
         [Required]
-        public decimal Price { get; set; }
+        public virtual decimal Price { get; set; }
 
         [Required]
-        public decimal PaymentStatus { get; set; }
+        public virtual decimal PaymentStatus { get; set; }
 
         [Required]
-        public string LinkInterview { get; set; }
+        public virtual string LinkInterview { get; set; }
     }
 }

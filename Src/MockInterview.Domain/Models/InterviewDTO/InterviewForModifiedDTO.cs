@@ -1,18 +1,10 @@
 ﻿using MockInterview.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace MockInterview.Domain.Models.InterviewDTO
 {
-    public class InterviewForCreationDTO : InterviewDTO
+    public class InterviewForModifiedDTO : InterviewDTO
     {
-        [JsonIgnore]
-        public override Guid ClientId { get; set; }
         [JsonIgnore]
         public override Client Client { get; set; }
 
@@ -21,6 +13,5 @@ namespace MockInterview.Domain.Models.InterviewDTO
 
         [JsonIgnore]
         public override Employee Employee { get; set; }
-
     }
 }
