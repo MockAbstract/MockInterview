@@ -34,9 +34,20 @@ namespace MockInterview.Business.Services
             return response;
         }
 
-        public Task<HttpResponse<InterviewDTO>> DeleteAsync(Guid Id, Guid currentId)
+        public async Task<HttpResponse<InterviewDTO>> DeleteAsync(Guid Id, Guid currentId)
         {
-            throw new NotImplementedException();
+            if(Id != Guid.Empty)
+            {
+                var isSucces = await interviewRepositoryAsync.RemoveAsync(Id);
+
+                if (isSucces)
+                    return response;
+            
+            }
+            response.IsSuccess = false;
+            response.StatusCode = StatusCodes.Status400BadRequest;
+
+            return response;
         }
 
         public Task<HttpResponse<InterviewDTO>> GetAllAsync()
@@ -54,9 +65,18 @@ namespace MockInterview.Business.Services
             throw new NotImplementedException();
         }
 
-        public Task<HttpResponse<InterviewDTO>> UpdateAsync(InterviewDTO model, Guid currentId)
+        public async Task<HttpResponse<InterviewDTO>> UpdateAsync(InterviewDTO model, Guid currentId)
         {
-            throw new NotImplementedException();
+            var interview = mapper.Map<Interview>(model);
+            var isSucces = await interviewRepositoryAsync.UpdateAsync(interview);
+
+            if (isSucces)
+                return response;
+
+            response.IsSuccess = false;
+            response.StatusCode = StatusCodes.Status400BadRequest;
+
+            return response;
         }
     }
 }
