@@ -1,5 +1,7 @@
-﻿using MockInterview.Domain.Enums;
+﻿using Microsoft.AspNetCore.Http;
+using MockInterview.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace MockInterview.Domain.Models.EmployeeDTO
 {
@@ -22,6 +24,13 @@ namespace MockInterview.Domain.Models.EmployeeDTO
 
         public virtual string ImagePath { get; set; }
 
+        public virtual DateTimeOffset ExperienceStartDate { get; set; }
+
+        public virtual DateTimeOffset ExperienceEndDate { get; set; }
+
+        [Required]
+        public virtual Role Role { get; set; }
+
         [Required]
         public virtual string Login { get; set; }
 
@@ -33,12 +42,8 @@ namespace MockInterview.Domain.Models.EmployeeDTO
         [Compare("Password")]
         public virtual string ConfirmPassword { get; set; }
 
-        public virtual DateTimeOffset ExperienceStartDate { get; set; }
-
-        public virtual DateTimeOffset ExperienceEndDate { get; set; }
-
-        [Required]
-        public virtual Role Role { get; set; }
+        [JsonIgnore]
+        public virtual IFormFile Image { get; set; }
 
         public virtual Guid CreatedBy { get; set; }
 
@@ -47,6 +52,7 @@ namespace MockInterview.Domain.Models.EmployeeDTO
         public virtual DateTimeOffset CreatedDate { get; set; }
 
         public virtual DateTimeOffset LastModifiedDate { get; set; }
+
 
     }
 }

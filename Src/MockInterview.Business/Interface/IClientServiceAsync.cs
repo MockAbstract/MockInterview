@@ -1,6 +1,5 @@
 ﻿using MockInterview.Domain.Models;
 using MockInterview.Domain.Models.ClientDTO;
-using MockInterview.Domain.Models.EmployeeDTO;
 
 namespace MockInterview.Business.Interface
 {

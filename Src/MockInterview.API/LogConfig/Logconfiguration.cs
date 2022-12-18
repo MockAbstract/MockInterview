@@ -6,7 +6,7 @@ namespace MockInterview.API.LogConfig
 {
     public static class LogConfigurations
     {
-        public static LoggerConfiguration SetLogConfiguration(WebApplicationBuilder builder)
+        public static LoggerConfiguration SetLogConfiguration()
         {
             return new LoggerConfiguration()
             .MinimumLevel.Override("Microsoft", LogEventLevel.Information)

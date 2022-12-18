@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace MockInterview.Domain.Models.EmployeeDTO
+namespace MockInterview.Domain.Models.ClientDTO
 {
-    public class EmployeeForGetDTO : EmployeeDTO
+    public class ClientForGetDTO : ClientDTO
     {
         [JsonIgnore]
         public override string Login { get; set; }

@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MockInterview.Business.Interface;
-using MockInterview.Domain.Entities;
 using MockInterview.Domain.Models;
 using MockInterview.Domain.Models.EmployeeDTO;
 using System.Security.Claims;
@@ -50,8 +48,9 @@ namespace MockInterview.API.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> CreateAsync(EmployeeForCreationDTO employee)
+        public async Task<IActionResult> CreateAsync(EmployeeForCreationDTO employee, IFormFile file)
         {
+            employee.Image = file;
             ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
             var employeeId = Guid
                 .Parse(identity.FindFirst(ClaimTypes.NameIdentifier).Value); 

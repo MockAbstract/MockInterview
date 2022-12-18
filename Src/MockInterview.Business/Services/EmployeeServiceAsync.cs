@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
 using MockInterview.Business.Interface;
 using MockInterview.Domain.Entities;
 using MockInterview.Domain.Models;
@@ -33,6 +34,7 @@ namespace MockInterview.Business.Services
                 employee = mapper.Map<Employee>(model);
                 employee.CreatedDate = DateTimeOffset.UtcNow;
                 employee.CreatedBy = currentId;
+                employee.ImagePath = await FileServiceAsync.UploadFile(model.Image);
                 bool isSucces = await this.employeeRepositoryAsync
                     .InsertAsync(employee);
 
@@ -67,7 +69,7 @@ namespace MockInterview.Business.Services
         public virtual async Task<HttpResponse<EmployeeDTO>> GetByIdAsync(Guid id)
         {
             var employe = await employeeRepositoryAsync.FindAsync(employe => employe.Id.Equals(id));
-            response.Result = mapper.Map<IEnumerable<EmployeeDTO>>(new List<Employee> { employe});
+            response.Result = mapper.Map<IEnumerable<EmployeeForGetDTO>>(new List<Employee> { employe});
 
             return response;
         }
@@ -76,7 +78,7 @@ namespace MockInterview.Business.Services
         {
             var employes = await employeeRepositoryAsync.GetPageListAsync(pageNumber, pageSize);
             response.TotalCount = employes.count;
-            response.Result = mapper.Map<IEnumerable<EmployeeDTO>>(employes.entities);
+            response.Result = mapper.Map<IEnumerable<EmployeeForGetDTO>>(employes.entities);
 
             return response;
         }
@@ -102,6 +104,7 @@ namespace MockInterview.Business.Services
 
             return response;
         }
+
 
         #region LoginMethod
         /// <summary>
@@ -138,7 +141,8 @@ namespace MockInterview.Business.Services
                 issuer: AuthOptions.ISSUER,
                 audience: AuthOptions.AUDIENCE,
                 claims: claims,
-                expires: DateTime.UtcNow.AddHours(1)
+                expires: DateTime.UtcNow.AddHours(1),
+                signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256)
                 );
             return new JwtSecurityTokenHandler().WriteToken(jwt);
         }

@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using Microsoft.AspNetCore.Http;
+using System.Text.Json.Serialization;
 
 namespace MockInterview.Domain.Models.ClientDTO
 {
@@ -9,6 +10,5 @@ namespace MockInterview.Domain.Models.ClientDTO
 
         [JsonIgnore]
         public override DateTimeOffset RegisterDate { get; set; }
-
     }
 }

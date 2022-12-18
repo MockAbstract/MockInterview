@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MockInterview.Business.Interface;
+using MockInterview.Domain.Models;
 using MockInterview.Domain.Models.ClientDTO;
-using MockInterview.Domain.Models.EmployeeDTO;
 using System.Security.Claims;
 
 namespace MockInterview.API.Controllers
@@ -39,7 +39,7 @@ namespace MockInterview.API.Controllers
         }
 
         [HttpPost("client/register")]
-        public async Task<IActionResult> RegisterClientAsync([FromBody]ClientForCreationDTO client)
+        public async Task<IActionResult> RegisterClientAsync(ClientForCreationDTO client)
         {
             ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
             var clientId = Guid
