@@ -5,7 +5,6 @@ namespace MockInterview.Domain.Models.CategoryDTO
 {
     public class CategoryDTO
     {
-        [Required]
         public virtual Guid Id { get; set; }
 
         [Required]
