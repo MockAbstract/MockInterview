@@ -18,6 +18,9 @@ namespace MockInterview.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new DefaultEmployee());
+            modelBuilder.ApplyConfiguration(new DefaultClient());
+            modelBuilder.ApplyConfiguration(new DefaultCategory());
+            modelBuilder.ApplyConfiguration(new DefaultInterview());
 
             base.OnModelCreating(modelBuilder); 
         }
