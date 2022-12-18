@@ -54,7 +54,7 @@ namespace MockInterview.Business.Services
             return response;
         }
 
-        public virtual async Task<HttpResponse<EmployeeDTO>> GetAll()
+        public virtual async Task<HttpResponse<EmployeeDTO>> GetAllAsync()
         {
             var employes =  await employeeRepositoryAsync.GetAllAsync();
 
@@ -64,7 +64,7 @@ namespace MockInterview.Business.Services
             return response;
         }
 
-        public virtual async Task<HttpResponse<EmployeeDTO>> GetById(Guid id)
+        public virtual async Task<HttpResponse<EmployeeDTO>> GetByIdAsync(Guid id)
         {
             var employe = await employeeRepositoryAsync.FindAsync(employe => employe.Id.Equals(id));
             response.Result = mapper.Map<IEnumerable<EmployeeDTO>>(new List<Employee> { employe});
@@ -75,7 +75,6 @@ namespace MockInterview.Business.Services
         public virtual async Task<HttpResponse<EmployeeDTO>> GetPageListAsync(int pageNumber, int pageSize)
         {
             var employes = await employeeRepositoryAsync.GetPageListAsync(pageNumber, pageSize);
-
             response.TotalCount = employes.count;
             response.Result = mapper.Map<IEnumerable<EmployeeDTO>>(employes.entities);
 
@@ -84,7 +83,6 @@ namespace MockInterview.Business.Services
 
         public virtual async Task<HttpResponse<EmployeeDTO>> UpdateAsync(EmployeeDTO model, Guid currentId)
         {
-            HttpResponse<EmployeeDTO> response = new();
             var ExistUser = await employeeRepositoryAsync
                 .FindAsync(u => u.Login == model.Login);
 

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using MockInterview.Business.Interface;
 using MockInterview.Domain.Entities;
 using MockInterview.Domain.Models;
@@ -48,26 +49,50 @@ namespace MockInterview.Business.Services
             return response;
         }
 
-        public virtual async Task<HttpResponse<CategoryDTO>> GetAll()
+        public virtual async Task<HttpResponse<CategoryDTO>> GetAllAsync()
         {
             var entities = await categoryRepositoryAsync.GetAllAsync(new List<string> { "Specialist" });
+            response.Result = mapper.Map<IEnumerable<CategoryDTO>>(entities);
 
-            return null;
+            return response;
         }
 
-        public Task<HttpResponse<CategoryDTO>> GetById(Guid id)
+        public virtual async Task<HttpResponse<CategoryDTO>> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var category = await categoryRepositoryAsync.FindAsync(category => category.Id == id);
+            response.Result = new List<CategoryDTO>() { mapper.Map<CategoryDTO>(category) };
+
+            return response;
+
         }
 
-        public Task<HttpResponse<CategoryDTO>> GetPageListAsync(int pageNumber, int pageSize)
+        public virtual async Task<HttpResponse<CategoryDTO>> GetPageListAsync(int pageNumber, int pageSize)
         {
-            throw new NotImplementedException();
+            var categories = await categoryRepositoryAsync.GetPageListAsync(pageNumber, pageSize);
+            response.TotalCount = categories.count;
+            response.Result = mapper.Map<IEnumerable<CategoryDTO>>(categories.entities);
+
+            return response;
         }
 
-        public Task<HttpResponse<CategoryDTO>> UpdateAsync(CategoryDTO model, Guid currentId)
+        public virtual async Task<HttpResponse<CategoryDTO>> UpdateAsync(CategoryDTO model, Guid currentId)
         {
-            throw new NotImplementedException();
+            var existCategory = await categoryRepositoryAsync
+                .FindAsync(category => category.Name.Equals(model.Name));
+
+            if(existCategory is null)
+            {
+                var category = mapper.Map<Category>(model);
+                await categoryRepositoryAsync.UpdateAsync(category);
+            }
+            else
+            {
+                response.IsSuccess = false;
+                response.StatusMessage = "Category is already exist";
+                response.StatusCode = StatusCodes.Status400BadRequest;
+            }
+
+            return response;
         }
     }
 }

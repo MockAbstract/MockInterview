@@ -65,7 +65,7 @@ namespace MockInterview.Business.Services
             return response;
         }
 
-        public async Task<HttpResponse<ClientDTO>> GetAll()
+        public async Task<HttpResponse<ClientDTO>> GetAllAsync()
         {
             var clients = await clientRepositoryAsync.GetAllAsync();
 
@@ -75,7 +75,7 @@ namespace MockInterview.Business.Services
             return response;
         }
 
-        public async Task<HttpResponse<ClientDTO>> GetById(Guid id)
+        public async Task<HttpResponse<ClientDTO>> GetByIdAsync(Guid id)
         {
             var client = await clientRepositoryAsync.FindAsync(employe => employe.Id.Equals(id));
             response.Result = mapper.Map<IEnumerable<ClientDTO>>(new List<Client> { client });
