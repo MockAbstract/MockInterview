@@ -9,6 +9,7 @@ namespace MockInterview.Infrastructure.Interface
         Task<bool> UpdateAsync(T entity);
         Task<bool> RemoveAsync(Guid id);
         Task<(IEnumerable<T> entities, int count)> GetAllAsync();
+        Task<IEnumerable<T>> GetAllAsync(List<string> tables);
         Task<T> FindAsync(Expression<Func<T, bool>> expression);
         Task<T> FindAsync(Expression<Func<T, bool>> expression, List<string> tables);
         Task<(IEnumerable<T> entities, int count)> GetPageListAsync(int pageNumber, int pageSize);

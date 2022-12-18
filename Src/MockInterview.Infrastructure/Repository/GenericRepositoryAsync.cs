@@ -95,7 +95,7 @@ namespace MockInterview.Infrastructure.Repository
             {
                 entities = entities.Include(table);
             }
-            return await entities.FirstOrDefaultAsync(expression);
+            return await entities.FirstOrDefaultAsync(expression);  
         }
 
         /// <summary>
@@ -161,5 +161,14 @@ namespace MockInterview.Infrastructure.Repository
         public async Task<bool> SaveChangesAsync() =>
              await context.SaveChangesAsync() > 0 ? true : false;
 
+        public virtual async Task<IEnumerable<T>> GetAllAsync(List<string> tables)
+        {
+            IQueryable<T> entities = dbSet.AsNoTracking();
+            foreach (var table in tables)
+            {
+                entities = entities.Include(table);
+            }
+            return await entities.Where(entity => entity.IsActive.Equals(true)).ToListAsync();
+        }
     }
 }
