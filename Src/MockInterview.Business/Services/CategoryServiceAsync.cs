@@ -4,11 +4,6 @@ using MockInterview.Domain.Entities;
 using MockInterview.Domain.Models;
 using MockInterview.Domain.Models.CategoryDTO;
 using MockInterview.Infrastructure.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MockInterview.Business.Services
 {
@@ -35,7 +30,7 @@ namespace MockInterview.Business.Services
 
             if (!entity.Equals(null))
             {
-                isSuccess = categoryRepositoryAsync.UpdateAsync(entity);
+                isSuccess = await categoryRepositoryAsync.UpdateAsync(entity);
                 response.IsSuccess = isSuccess;
 
                 return response;

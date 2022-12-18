@@ -18,7 +18,6 @@ namespace MockInterview.Infrastructure.Data.SeedData
                 CreatedBy = Guid.Empty,
                 CreatedDate = DateTime.Now,
                 Level = Level.None,
-                Experience = TimeSpan.Zero,
                 Login = "admin",
                 Password = "admin",
                 PhoneNumber = "1111",
