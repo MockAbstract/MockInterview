@@ -55,6 +55,12 @@ namespace MockInterview.API.Controllers
             ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
             var userId = Guid
                 .Parse(identity.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            var response = await interviewServiceAsync.DeleteAsync(Id, userId);
+
+            return StatusCode(response.StatusCode, response);
+        }
+
         [HttpGet]
         [ProducesResponseType(typeof(HttpResponse<InterviewDTO>), 200)]
         public async Task<IActionResult> GetInterviews()
@@ -83,11 +89,6 @@ namespace MockInterview.API.Controllers
             return StatusCode(response.StatusCode, response);
 
         }
-
-
-            var response = await interviewServiceAsync.DeleteAsync(Id, userId);
-
-            return StatusCode(response.StatusCode, response);
-        }
+            
     }
 }
