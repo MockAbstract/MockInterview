@@ -50,6 +50,15 @@ namespace MockInterview.Business.Services
 
         public async Task<HttpResponse<ClientDTO>> DeleteAsync(Guid Id, Guid currentId)
         {
+            if(currentId != Id)
+            {
+                response.IsSuccess = false;
+                response.StatusMessage = "Access Denied";
+                response.StatusCode = Microsoft.AspNetCore.Http
+                    .StatusCodes.Status403Forbidden;
+
+                return response;
+            }
             bool isSucces = await clientRepositoryAsync.RemoveAsync(Id);
             response.IsSuccess = isSucces;
 
@@ -86,7 +95,15 @@ namespace MockInterview.Business.Services
         
         public async Task<HttpResponse<ClientDTO>> UpdateAsync(ClientDTO model, Guid currentId)
         {
-            HttpResponse<ClientDTO> response = new();
+            if(model.Id != currentId)
+            {
+                response.IsSuccess = false;
+                response.StatusMessage = "Access Denied";
+                response.StatusCode = Microsoft.AspNetCore.Http
+                    .StatusCodes.Status403Forbidden;
+
+                return response;
+            }
             var ExistUser = await clientRepositoryAsync
                 .FindAsync(u => u.Login == model.Login);
 
