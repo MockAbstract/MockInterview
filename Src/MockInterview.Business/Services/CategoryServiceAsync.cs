@@ -4,11 +4,6 @@ using MockInterview.Domain.Entities;
 using MockInterview.Domain.Models;
 using MockInterview.Domain.Models.CategoryDTO;
 using MockInterview.Infrastructure.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MockInterview.Business.Services
 {
@@ -18,24 +13,23 @@ namespace MockInterview.Business.Services
         private readonly IMapper mapper;
         private HttpResponse<CategoryDTO> response;
 
-        public CategoryServiceAsync(ICategoryRepositoryAsync categoryRepositoryAsync, IMapper mapper, HttpResponse<CategoryDTO> response)
+        public CategoryServiceAsync(ICategoryRepositoryAsync categoryRepositoryAsync, IMapper mapper)
         {
             this.categoryRepositoryAsync = categoryRepositoryAsync;
             this.mapper = mapper;
             this.response = new HttpResponse<CategoryDTO>();
         }
 
-        public virtual async Task<HttpResponse<CategoryDTO>> Create(CategoryDTO model)
+        public virtual async Task<HttpResponse<CategoryDTO>> CreateAsync(CategoryDTO model, Guid currentId)
         {
-            var entity = mapper
-                .Map<Category>(await categoryRepositoryAsync
-                .FindAsync(category => category.Name.Equals(model.Name)));
-
             bool isSuccess = false;
+            var entity = await categoryRepositoryAsync
+                .FindAsync(category => category.Name.Equals(model.Name));
 
-            if (!entity.Equals(null))
+
+            if (entity.Equals(null))
             {
-                isSuccess = categoryRepositoryAsync.UpdateAsync(entity);
+                isSuccess = await categoryRepositoryAsync.InsertAsync(mapper.Map<Category>(model));
                 response.IsSuccess = isSuccess;
 
                 return response;
@@ -46,14 +40,19 @@ namespace MockInterview.Business.Services
             return response;
         }
 
-        public Task<HttpResponse<CategoryDTO>> Delete(Guid Id)
+        public virtual async Task<HttpResponse<CategoryDTO>> DeleteAsync(Guid Id, Guid currentId)
         {
-            throw new NotImplementedException();
+            bool isSuccess = await categoryRepositoryAsync.RemoveAsync(Id);
+            response.IsSuccess = isSuccess;
+
+            return response;
         }
 
-        public Task<HttpResponse<CategoryDTO>> GetAll()
+        public virtual async Task<HttpResponse<CategoryDTO>> GetAll()
         {
-            throw new NotImplementedException();
+            var entities = await categoryRepositoryAsync.GetAllAsync(new List<string> { "Specialist" });
+
+            return null;
         }
 
         public Task<HttpResponse<CategoryDTO>> GetById(Guid id)
@@ -66,7 +65,7 @@ namespace MockInterview.Business.Services
             throw new NotImplementedException();
         }
 
-        public Task<HttpResponse<CategoryDTO>> Update(CategoryDTO model)
+        public Task<HttpResponse<CategoryDTO>> UpdateAsync(CategoryDTO model, Guid currentId)
         {
             throw new NotImplementedException();
         }
