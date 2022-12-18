@@ -1,26 +1,37 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using MockInterview.Business.Interface;
+using MockInterview.Domain.Entities;
 using MockInterview.Domain.Models;
 using MockInterview.Domain.Models.InterviewDTO;
+using MockInterview.Infrastructure.Interface;
 
 namespace MockInterview.Business.Services
 {
     public class InterviewServiceAsync : IInterviewServiceAsync
     {
-        private readonly IInterviewServiceAsync interviewServiceAsync;
+        private readonly IInterviewRepositoryAsync interviewRepositoryAsync;
         private IMapper mapper;
         private readonly HttpResponse<InterviewDTO> response;
 
-        public InterviewServiceAsync(IInterviewServiceAsync interviewServiceAsync, IMapper mapper)
+        public InterviewServiceAsync(IInterviewRepositoryAsync interviewRepositoryAsync, IMapper mapper)
         {
-            this.interviewServiceAsync = interviewServiceAsync;
+            this.interviewRepositoryAsync = interviewRepositoryAsync;
             this.mapper = mapper;
             this.response = new HttpResponse<InterviewDTO>();
         }
 
-        public Task<HttpResponse<InterviewDTO>> CreateAsync(InterviewDTO model, Guid currentId)
+        public async Task<HttpResponse<InterviewDTO>> CreateAsync(InterviewDTO model, Guid currentId)
         {
-            throw new NotImplementedException();
+            var interview = mapper.Map<Interview>(model);
+            var isSucces = await interviewRepositoryAsync.InsertAsync(interview);
+            if (isSucces)
+                return response;
+
+            response.IsSuccess = false;
+            response.StatusCode = StatusCodes.Status400BadRequest;
+
+            return response;
         }
 
         public Task<HttpResponse<InterviewDTO>> DeleteAsync(Guid Id, Guid currentId)
