@@ -6,10 +6,10 @@ namespace MockInterview.Domain.Models.CategoryDTO
 {
     public class CategoryForCreationDTO : CategoryDTO
     {
-        [Required]
-        public Guid CategoryId { get; set; }
+        [JsonIgnore]
+        public override Guid Id { get; set; }
 
         [JsonIgnore]
-        public virtual IEnumerable<EmployeeForGetDTO> Specialist { get; set; }
+        public override IEnumerable<EmployeeForGetDTO> Specialist { get; set; }
     }
 }
