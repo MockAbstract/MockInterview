@@ -50,8 +50,11 @@ namespace MockInterview.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<TimeSpan>("Experience")
-                        .HasColumnType("time");
+                    b.Property<DateTimeOffset>("ExperienceEndDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset>("ExperienceStartDate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -105,8 +108,11 @@ namespace MockInterview.Infrastructure.Migrations
                     b.Property<DateTimeOffset>("CreatedDate")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<TimeSpan>("Experience")
-                        .HasColumnType("time");
+                    b.Property<DateTimeOffset>("ExperienceEndDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset>("ExperienceStartDate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -155,10 +161,11 @@ namespace MockInterview.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("da917ad5-1b83-47b8-8507-98f199c4ba3a"),
+                            Id = new Guid("292b3a32-a2ce-4f53-a5e8-a8a1dcdb2525"),
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
-                            CreatedDate = new DateTimeOffset(new DateTime(2022, 12, 18, 10, 19, 27, 858, DateTimeKind.Unspecified).AddTicks(8061), new TimeSpan(0, 5, 0, 0, 0)),
-                            Experience = new TimeSpan(0, 0, 0, 0, 0),
+                            CreatedDate = new DateTimeOffset(new DateTime(2022, 12, 18, 10, 39, 41, 169, DateTimeKind.Unspecified).AddTicks(8164), new TimeSpan(0, 5, 0, 0, 0)),
+                            ExperienceEndDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            ExperienceStartDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             FirstName = "Nodirxon",
                             IsActive = true,
                             LastModifiedDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
