@@ -39,11 +39,10 @@ namespace MockInterview.API.Controllers
         }
 
         [HttpPost("client/register")]
-        public async Task<IActionResult> RegisterClientAsync([FromQuery]ClientForCreationDTO client)
+        public async Task<IActionResult> RegisterClientAsync([FromBody] ClientForCreationDTO client)
         {
             ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
-            var clientId = Guid
-                .Parse(identity.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var clientId = Guid.NewGuid();
 
             var response = await clientServiceAsync
                 .CreateAsync(client, clientId);

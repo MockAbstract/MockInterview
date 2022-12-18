@@ -7,7 +7,6 @@ namespace MockInterview.Domain.Models.ClientDTO
 {
     public class ClientDTO
     {
-        [Required]
         public virtual Guid Id { get; set; }
 
         [Required]
@@ -32,6 +31,8 @@ namespace MockInterview.Domain.Models.ClientDTO
         public virtual DateTimeOffset ExperienceEndDate { get; set; }
 
         public virtual string ImagePath { get; set; }
+
+        [JsonIgnore]
         public virtual DateTimeOffset RegisterDate { get; set; } = DateTime.Now;
 
         [Required]

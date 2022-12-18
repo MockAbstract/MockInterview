@@ -39,7 +39,6 @@ namespace MockInterview.Business.Services
             {
                 client = mapper.Map<Client>(model);
                 client.RegisterDate = DateTimeOffset.UtcNow;
-                client.ImagePath = await fileServiceAsync.UploadFileAsync(model.Image);
                 bool isSucces = await this.clientRepositoryAsync
                     .InsertAsync(client);
 

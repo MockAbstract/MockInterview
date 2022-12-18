@@ -10,5 +10,8 @@ namespace MockInterview.Domain.Models.ClientDTO
 
         [JsonIgnore]
         public override DateTimeOffset RegisterDate { get; set; }
+
+        [JsonIgnore]
+        public override string ImagePath { get; set; }
     }
 }
