@@ -68,9 +68,13 @@ namespace MockInterview.Business.Services
             return response;
         }
 
-        public Task<HttpResponse<InterviewDTO>> GetPageListAsync(int pageNumber, int pageSize)
+        public virtual async Task<HttpResponse<InterviewDTO>> GetPageListAsync(int pageNumber, int pageSize)
         {
-            throw new NotImplementedException();
+            var interview = await interviewRepositoryAsync.GetPageListAsync(pageNumber, pageSize);
+            response.TotalCount = interview.count;
+            response.Result = mapper.Map<IEnumerable<InterviewForGetDTO>>(interview.entities);
+
+            return response;
         }
 
         public async Task<HttpResponse<InterviewDTO>> UpdateAsync(InterviewDTO model, Guid currentId)
