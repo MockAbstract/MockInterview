@@ -1,20 +1,15 @@
 ﻿using MockInterview.Domain.Models.EmployeeDTO;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace MockInterview.Domain.Models.CategoryDTO
 {
-    public class CategoryDTO
+    public class CategoryForCreationDTO : CategoryDTO
     {
         [Required]
-        public Guid Id { get; set; }
+        public Guid CategoryId { get; set; }
 
-        [Required]
-        public virtual string Name { get; set; }
-
-        [Required]
-        public virtual string Description { get; set; }
-
-        [Required]
+        [JsonIgnore]
         public virtual IEnumerable<EmployeeForGetDTO> Specialist { get; set; }
     }
 }
