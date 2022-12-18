@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MockInterview.Business.Interface;
+using MockInterview.Domain.Entities;
 using MockInterview.Domain.Models;
 using MockInterview.Domain.Models.ClientDTO;
 using MockInterview.Domain.Models.EmployeeDTO;
@@ -9,6 +11,7 @@ namespace MockInterview.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ClientsController : ControllerBase
     {
         private readonly IClientServiceAsync clientServiceAsync;
@@ -26,6 +29,22 @@ namespace MockInterview.API.Controllers
 
             return StatusCode(response.StatusCode, response);
         }
+
+        [HttpPost("image")]
+        [ProducesResponseType(typeof(HttpResponse<ClientDTO>), 200)]
+        public async Task<IActionResult> UpdateImageAsync(Guid clientId, IFormFile file)
+        {
+            string imageExtension = Path.GetExtension(file.FileName);
+
+            if (imageExtension == ".png" || imageExtension == ".jpg")
+            {
+                var response = await clientServiceAsync.SetImage(clientId, file);
+
+                return StatusCode(response.StatusCode, response);
+            }
+            return BadRequest("File type must be image");
+        }
+
 
         [HttpGet("id")]
         [ProducesResponseType(typeof(HttpResponse<ClientDTO>), 200)]
