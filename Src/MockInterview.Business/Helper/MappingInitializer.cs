@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MockInterview.Domain.Entities;
+using MockInterview.Domain.Models.CategoryDTO;
 using MockInterview.Domain.Models.ClientDTO;
 using MockInterview.Domain.Models.EmployeeDTO;
 
@@ -13,6 +14,8 @@ namespace MockInterview.Business.Helper
             CreateMap<Employee, EmployeeForGetDTO>().ReverseMap();
 
             CreateMap<Client, ClientDTO>().ReverseMap();
+            CreateMap<Employee, EmployeeForGetDTO>().ReverseMap();
+            CreateMap<Category, CategoryDTO>().ReverseMap();
             CreateMap<Client, ClientForGetDTO>().ReverseMap();
         }
     }
