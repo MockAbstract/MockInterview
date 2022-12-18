@@ -32,11 +32,12 @@ namespace MockInterview.Infrastructure.Migrations
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Level = table.Column<int>(type: "int", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Experience = table.Column<TimeSpan>(type: "time", nullable: false),
                     ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Login = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RegisterDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RegisterDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    ExperienceStartDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    ExperienceEndDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -53,10 +54,11 @@ namespace MockInterview.Infrastructure.Migrations
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Level = table.Column<int>(type: "int", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Experience = table.Column<TimeSpan>(type: "time", nullable: false),
                     ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Login = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ExperienceStartDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    ExperienceEndDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     Role = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UpdatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -88,6 +90,7 @@ namespace MockInterview.Infrastructure.Migrations
                     Level = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     PaymentStatus = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    LinkInterView = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -114,8 +117,8 @@ namespace MockInterview.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "Employees",
-                columns: new[] { "Id", "CategoryId", "CreatedBy", "CreatedDate", "Experience", "FirstName", "ImagePath", "IsActive", "LastModifiedDate", "LastName", "Level", "Login", "Password", "PhoneNumber", "Role", "UpdatedBy" },
-                values: new object[] { new Guid("42c6d39d-3a48-4d68-8b94-30f40b311a59"), null, new Guid("00000000-0000-0000-0000-000000000000"), new DateTimeOffset(new DateTime(2022, 12, 18, 0, 48, 6, 546, DateTimeKind.Unspecified).AddTicks(7047), new TimeSpan(0, 5, 0, 0, 0)), new TimeSpan(0, 0, 0, 0, 0), "Nodirxon", null, true, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "Abdumurotov", 0, "admin", "admin", "1111", 0, new Guid("00000000-0000-0000-0000-000000000000") });
+                columns: new[] { "Id", "CategoryId", "CreatedBy", "CreatedDate", "ExperienceEndDate", "ExperienceStartDate", "FirstName", "ImagePath", "IsActive", "LastModifiedDate", "LastName", "Level", "Login", "Password", "PhoneNumber", "Role", "UpdatedBy" },
+                values: new object[] { new Guid("292b3a32-a2ce-4f53-a5e8-a8a1dcdb2525"), null, new Guid("00000000-0000-0000-0000-000000000000"), new DateTimeOffset(new DateTime(2022, 12, 18, 10, 39, 41, 169, DateTimeKind.Unspecified).AddTicks(8164), new TimeSpan(0, 5, 0, 0, 0)), new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "Nodirxon", null, true, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "Abdumurotov", 0, "admin", "admin", "1111", 0, new Guid("00000000-0000-0000-0000-000000000000") });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Employees_CategoryId",
